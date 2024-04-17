@@ -53,6 +53,19 @@ android {
         }
     }
 }
+androidComponents {
+    onVariants {
+        it.buildConfigFields.put(
+            "BASE_URL", BuildConfigField(
+                "String", "\"" + project.properties["BASE_URL"] as String + "\"", "BASE_URL"
+            ) )
+        it.buildConfigFields.put(
+            "ACCESS_TOKEN", BuildConfigField(
+                "String", "\"" + project.properties["ACCESS_TOKEN"] as String + "\"", "ACCESS_TOKEN"
+            )
+        )
+    }
+}
 
 dependencies {
 
