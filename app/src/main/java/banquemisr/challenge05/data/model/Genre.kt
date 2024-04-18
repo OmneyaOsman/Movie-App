@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.model.movieDetails
+package banquemisr.challenge05.data.model
 
 
 import com.squareup.moshi.Json
