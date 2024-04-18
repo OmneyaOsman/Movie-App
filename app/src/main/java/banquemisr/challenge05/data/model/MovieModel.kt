@@ -1,11 +1,15 @@
 package banquemisr.challenge05.data.model
 
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
+@Entity(tableName = "Movie", primaryKeys = [("id")])
 data class MovieModel(
+    @Json(name = "id")
+    val id: Int,
     @Json(name = "backdrop_path")
     val backdropPath: String,
     @Json(name = "budget")
@@ -14,8 +18,6 @@ data class MovieModel(
     val genres: List<Genre>,
     @Json(name = "homepage")
     val homepage: String,
-    @Json(name = "id")
-    val id: Int,
     @Json(name = "imdb_id")
     val imdbId: String,
     @Json(name = "origin_country")
@@ -41,5 +43,6 @@ data class MovieModel(
     @Json(name = "vote_average")
     val voteAverage: Double,
     @Json(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+    var movieType: String
 )

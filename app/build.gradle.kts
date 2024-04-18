@@ -96,11 +96,27 @@ dependencies {
     testImplementation(libs.okhttp.mockserver)
     implementation(libs.junit)
     implementation(libs.kotlinx.coroutines.test)
-
+    // Coil Compose
+    implementation( libs.coil.compose)
 
     // json parsing
     implementation(libs.moshi)
     ksp(libs.moshi.codegen)
+
+    //room
+    implementation(libs.room.runtime)
+    implementation(libs.room.compiler)
+    implementation(libs.room.ktx)
+
+    // Paging
+    implementation (libs.androidx.paging.runtime.ktx)
+    implementation (libs.androidx.paging.compose)
+    implementation (libs.androidx.room.paging)
+
+    // Pager Indicator
+    implementation (libs.accompanist.pager)
+    implementation (libs.accompanist.pager.indicator)
+
 
     //testing
     testImplementation(libs.junit)
