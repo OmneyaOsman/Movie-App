@@ -85,7 +85,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     // network
-    implementation(libs.sandwich)
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.okhttp.interceptor)

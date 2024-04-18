@@ -2,7 +2,6 @@ package banquemisr.challenge05.data.remote.api
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import banquemisr.challenge05.data.remote.core.MainCoroutinesRule
-import com.skydoves.sandwich.retrofit.adapters.ApiResponseCallAdapterFactory
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.buffer
@@ -42,11 +41,6 @@ abstract class AbstractAPIService<T> {
         return Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
             .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(
-                ApiResponseCallAdapterFactory.create(
-                    coroutineScope = coroutinesRule.testScope,
-                ),
-            )
             .build()
             .create(clazz)
     }

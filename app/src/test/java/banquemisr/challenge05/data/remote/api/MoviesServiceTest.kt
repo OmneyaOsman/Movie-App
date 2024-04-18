@@ -1,9 +1,9 @@
 package banquemisr.challenge05.data.remote.api
 
-import com.skydoves.sandwich.ApiResponse
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
+import org.hamcrest.core.Is.`is`
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
@@ -22,16 +22,15 @@ class MoviesServiceTest : AbstractAPIService<MoviesService>() {
     fun fetchMoviesFromNetworkTestThenReturnSuccessResponse() = runTest {
         enqueueResponse("/UpcomingMoviesReponse.json")
         val response = service.fetchUpcomingMovies(1)
-        val responseBody = ((response as ApiResponse.Success).data)
 
         MatcherAssert.assertThat(
-            responseBody.movieResponseList[0].title,
-            CoreMatchers.`is`("Godzilla x Kong: The New Empire")
+            response.movieResponseList[0].title,
+            `is`("Godzilla x Kong: The New Empire")
         )
-        MatcherAssert.assertThat(responseBody.totalPages, CoreMatchers.`is`(52))
+        MatcherAssert.assertThat(response.totalPages, `is`(52))
         MatcherAssert.assertThat(
-            responseBody.movieResponseList[0].releaseDate,
-            CoreMatchers.`is`("2024-03-27")
+            response.movieResponseList[0].releaseDate,
+            `is`("2024-03-27")
         )
     }
 
@@ -40,15 +39,14 @@ class MoviesServiceTest : AbstractAPIService<MoviesService>() {
     fun fetchMovieDetailsFromNetworkTestThenReturnSuccessResponse() = runTest {
         enqueueResponse("/MovieDetailsResponse.json")
         val response = service.fetchMovieDetails(823464)
-        val responseBody = requireNotNull((response as ApiResponse.Success).data)
 
         MatcherAssert.assertThat(
-            responseBody.title,
+            response.title,
             CoreMatchers.`is`("Godzilla x Kong: The New Empire")
         )
         MatcherAssert.assertThat(
-            responseBody.originalTitle,
-            CoreMatchers.`is`("Godzilla x Kong: The New Empire")
+            response.originalTitle,
+            `is`("Godzilla x Kong: The New Empire")
         )
     }
 
