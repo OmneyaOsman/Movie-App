@@ -1,5 +1,6 @@
 package banquemisr.challenge05.data.db.dao
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SmallTest
@@ -9,13 +10,13 @@ import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.utils.MockUtil
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.hamcrest.core.IsEqual
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -23,6 +24,10 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 @SmallTest
 class MoviesDaoTest{
+
+    @Rule
+    @JvmField
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     lateinit var db: MoviesDatabase
     private lateinit var dao: MoviesDao
@@ -32,8 +37,7 @@ class MoviesDaoTest{
         val moshi = Moshi.Builder().build()
         db = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            MoviesDatabase::class.java
-        )
+            MoviesDatabase::class.java)
             .allowMainThreadQueries()
             .addTypeConverter(GenereListConverter(moshi))
             .build()
@@ -48,7 +52,7 @@ class MoviesDaoTest{
     }
 
     @Test
-    fun whenInsertMoviesThenRetrieveListOfMovies() = runBlocking {
+    fun whenInsertMoviesThenRetrieveListOfMovies() = runTest {
         //Arrange
         val list = MockUtil.moviesList()
 
@@ -94,7 +98,7 @@ class MoviesDaoTest{
         val retrievedMovieModel = dao.getMovieDetails(list[0].id)
 
         MatcherAssert.assertThat(retrievedMovieModel, IsEqual(list[0]))
-        MatcherAssert.assertThat(retrievedMovieModel.genres[0].name, IsEqual(list[0].genres[0].name))
+        MatcherAssert.assertThat(retrievedMovieModel.genres?.get(0)?.name, IsEqual(list[0].genres?.get(0)?.name))
     }
 
 }

@@ -3,8 +3,6 @@ package banquemisr.challenge05.data.model
 
 import androidx.compose.runtime.Immutable
 import androidx.room.Entity
-import androidx.room.TypeConverters
-import banquemisr.challenge05.data.db.GenereListConverter
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -18,7 +16,7 @@ data class MovieModel(
     @Json(name = "backdrop_path")
     val backdropPath: String,
     @Json(name = "genres")
-    val genres: List<Genre>,
+    val genres: List<Genre>?,
     @Json(name = "original_language")
     val originalLanguage: String,
     @Json(name = "original_title")
@@ -32,12 +30,12 @@ data class MovieModel(
     @Json(name = "release_date")
     val releaseDate: String,
     @Json(name = "runtime")
-    val runtime: Int,
+    val runtime: Int?,
     @Json(name = "title")
     val title: String,
     @Json(name = "vote_average")
     val voteAverage: Double,
     @Json(name = "vote_count")
     val voteCount: Int,
-    var movieType: String
+    var movieType: String?
 )

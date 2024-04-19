@@ -20,6 +20,8 @@ import banquemisr.challenge05.BuildConfig
 import banquemisr.challenge05.data.remote.api.MoviesService
 import banquemisr.challenge05.data.remote.interceptor.AuthorizationInterceptor
 import banquemisr.challenge05.di.NetworkModuleConstants.RETROFIT_TIMEOUT
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,15 +62,19 @@ internal object NetworkModule {
             .addNetworkInterceptor(interceptor)
             .build()
 
+    @Singleton
+    @Provides
+    fun providesMoshi() = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
     @Provides
     @Singleton
     fun provideRetrofitBuilder(
-        client: OkHttpClient
+        client: OkHttpClient, moshi: Moshi
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(client)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
     @Provides
