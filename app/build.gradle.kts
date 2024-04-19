@@ -55,10 +55,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-//    testOptions.unitTests {
-//        isIncludeAndroidResources = true
-//        isReturnDefaultValues = true
-//    }
+    testOptions.unitTests {
+        isIncludeAndroidResources = true
+        isReturnDefaultValues = true
+    }
 }
 androidComponents {
     onVariants {
@@ -127,7 +127,7 @@ dependencies {
     androidTestImplementation(libs.androidx.arch.core)
     androidTestImplementation(libs.room.testing)
 //    testImplementation (libs.robolectric)
-    androidTestImplementation(libs.androidx.test.core)
+//    androidTestImplementation(libs.androidx.test.core)
 
 
     androidTestImplementation(libs.androidx.espresso.core)
@@ -138,5 +138,11 @@ dependencies {
     testImplementation(libs.androidx.arch.core)
 
 
+//    androidTestImplementation(TestDependencies.runner)
+//    androidTestImplementation(TestDependencies.rules)
+//    androidTestImplementation("androidx.test:core:1.5.0")
+//    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0"){
+//        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
+//    }
 
 }

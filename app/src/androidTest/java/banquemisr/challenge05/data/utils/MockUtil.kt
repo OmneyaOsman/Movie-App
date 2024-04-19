@@ -9,7 +9,7 @@ object MockUtil {
         MovieModel(
             929590,
             "/uv2twFGMk2qBdyJBJAVcrpRtSa9.jpg",
-            emptyList(),
+            listOf(Genre(0,"genre 1")),
             "en",
             "Civil War",
             "In the near future, a group of war journalists attempt to survive while reporting the truth as the United States stands on the brink of civil war.",

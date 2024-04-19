@@ -9,6 +9,7 @@ import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.utils.MockUtil
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -47,7 +48,7 @@ class MoviesDaoTest{
     }
 
     @Test
-    fun whenInsertMoviesThenRetrieveListOfMovies() = runTest {
+    fun whenInsertMoviesThenRetrieveListOfMovies() = runBlocking {
         //Arrange
         val list = MockUtil.moviesList()
 
@@ -93,6 +94,7 @@ class MoviesDaoTest{
         val retrievedMovieModel = dao.getMovieDetails(list[0].id)
 
         MatcherAssert.assertThat(retrievedMovieModel, IsEqual(list[0]))
+        MatcherAssert.assertThat(retrievedMovieModel.genres[0].name, IsEqual(list[0].genres[0].name))
     }
 
 }
