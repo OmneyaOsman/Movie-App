@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
-    id("kotlin-parcelize")
-//    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
+//    id("kotlin-parcelize")
 
 }
 
@@ -80,22 +80,19 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    ksp(libs.hilt.android.compiler)
+
     implementation(libs.hilt.android)
-    implementation(libs.timber.logs)
+    ksp(libs.hilt.android.compiler)
 
     // coroutines
     implementation(libs.kotlinx.coroutines)
-    testImplementation(libs.kotlinx.coroutines)
-    testImplementation(libs.kotlinx.coroutines.test)
 
     // network
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.okhttp.interceptor)
-    testImplementation(libs.okhttp.mockserver)
-    implementation(libs.junit)
-    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.timber.logs)
+
     // Coil Compose
     implementation( libs.coil.compose)
 
@@ -104,8 +101,8 @@ dependencies {
     ksp(libs.moshi.codegen)
 
     //room
-    implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
+//    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
     // Paging
@@ -117,10 +114,15 @@ dependencies {
     implementation (libs.accompanist.pager)
     implementation (libs.accompanist.pager.indicator)
 
-
+    implementation(libs.junit)
     //testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
+    testImplementation(libs.okhttp.mockserver)
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.arch.core)
+    androidTestImplementation(libs.room.testing)
+
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)

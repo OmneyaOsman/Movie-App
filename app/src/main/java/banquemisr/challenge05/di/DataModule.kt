@@ -2,6 +2,7 @@ package banquemisr.challenge05.di
 
 import android.content.Context
 import androidx.room.Room
+import banquemisr.challenge05.data.db.GenereListConverter
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.dao.MoviesDao
 import banquemisr.challenge05.data.db.dao.RemoteKeysDao
@@ -20,7 +21,8 @@ object DataModule {
     @Provides
     fun provideMovieDatabase(@ApplicationContext context: Context): MoviesDatabase =
         Room
-            .databaseBuilder(context, MoviesDatabase::class.java, "movies_database")
+            .databaseBuilder(context.applicationContext, MoviesDatabase::class.java, "movies_database")
+//            .addTypeConverter(GenereListConverter())
             .build()
 
     @Singleton
