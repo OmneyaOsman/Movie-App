@@ -55,6 +55,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+//    testOptions.unitTests {
+//        isIncludeAndroidResources = true
+//        isReturnDefaultValues = true
+//    }
 }
 androidComponents {
     onVariants {
@@ -122,6 +126,9 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.arch.core)
     androidTestImplementation(libs.room.testing)
+//    testImplementation (libs.robolectric)
+    androidTestImplementation(libs.androidx.test.core)
+
 
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

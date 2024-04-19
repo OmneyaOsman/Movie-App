@@ -1,7 +1,7 @@
 package banquemisr.challenge05.data.remote.api
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import banquemisr.challenge05.data.remote.MainCoroutinesRule
+import banquemisr.challenge05.data.utils.MainCoroutinesRule
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.buffer

@@ -11,9 +11,10 @@ import banquemisr.challenge05.data.model.RemoteKeys
 
 @Database(
     entities = [MovieModel::class, Genre::class, RemoteKeys::class],
-    version = 5,
+    version = 7,
     exportSchema = false
 )
+@TypeConverters(value = [GenereListConverter::class])
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao

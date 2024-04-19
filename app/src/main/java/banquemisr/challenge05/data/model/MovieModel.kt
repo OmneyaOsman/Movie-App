@@ -1,12 +1,14 @@
 package banquemisr.challenge05.data.model
 
 
+import androidx.compose.runtime.Immutable
 import androidx.room.Entity
 import androidx.room.TypeConverters
 import banquemisr.challenge05.data.db.GenereListConverter
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+@Immutable
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "Movie", primaryKeys = [("id")])
 //@TypeConverters(GenereListConverter::class)
@@ -15,8 +17,8 @@ data class MovieModel(
     val id: Int,
     @Json(name = "backdrop_path")
     val backdropPath: String,
-//    @Json(name = "genres")
-//    val genres: List<Genre>,
+    @Json(name = "genres")
+    val genres: List<Genre>,
     @Json(name = "original_language")
     val originalLanguage: String,
     @Json(name = "original_title")

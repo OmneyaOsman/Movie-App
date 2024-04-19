@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.remote
+package banquemisr.challenge05.data.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
