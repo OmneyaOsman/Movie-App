@@ -21,7 +21,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "banquemisr.challenge05.data.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -105,7 +105,7 @@ dependencies {
     ksp(libs.moshi.codegen)
 
     //room
-//    implementation(libs.room.runtime)
+    implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
@@ -118,31 +118,45 @@ dependencies {
     implementation (libs.accompanist.pager)
     implementation (libs.accompanist.pager.indicator)
 
-    implementation(libs.junit)
-    //testing
+//    implementation(libs.junit)
+//  unit tests
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
     testImplementation(libs.okhttp.mockserver)
     testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.arch.core)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.junit)
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation(libs.androidx.test.runner)
+
+
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.room.testing)
-//    testImplementation (libs.robolectric)
-//    androidTestImplementation(libs.androidx.test.core)
-
-
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    testImplementation(libs.androidx.arch.core)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.okhttp.mockserver)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    kspAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
 
+//    // Local unit tests
+//    testImplementation("com.squareup.okhttp3:okhttp:${okHttp}")
 
-//    androidTestImplementation(TestDependencies.runner)
-//    androidTestImplementation(TestDependencies.rules)
-//    androidTestImplementation("androidx.test:core:1.5.0")
-//    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0"){
-//        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
-//    }
+    // Instrumentation tests
+
+//    androidTestImplementation("com.squareup.okhttp3:okhttp:${okHttp}")
 
 }

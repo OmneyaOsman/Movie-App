@@ -26,6 +26,10 @@ robolectric = "4.12.1"
 timber ="5.0.1"
 room = "2.6.1"
 accompanist = "0.24.2-alpha"
+truth = "1.4.2"
+turbine = "1.0.0"
+androidxTestRules = "1.5.0"
+androidxTestRunner = "1.5.2"
 
 
 
@@ -38,7 +42,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCore" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCore" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -83,9 +87,10 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 timber-logs = {group="com.jakewharton.timber", name="timber" ,version.ref ="timber"}
 
 #testing
-androidx-runner = {module="androidx.test:runner" , version="androidxTest"}
-androidx-rules = {module="androidx.test:rules" , version="androidxTest"}
-
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
