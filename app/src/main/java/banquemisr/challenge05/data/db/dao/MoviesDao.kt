@@ -10,7 +10,7 @@ import banquemisr.challenge05.data.model.MovieModel
 @Dao
 interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(games: List<MovieModel>)
+    suspend fun insertAll(movies: List<MovieModel>)
 
     @Query("SELECT * FROM Movie WHERE movieType LIKE :query")
     fun getMoviesPagingSource(query: String): PagingSource<Int, MovieModel>

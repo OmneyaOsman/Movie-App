@@ -1,6 +1,6 @@
 package banquemisr.challenge05.data.remote.api
 
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.hamcrest.core.Is.`is`
@@ -19,7 +19,7 @@ class MoviesServiceTest : AbstractAPIService<MoviesService>() {
 
     @Throws(IOException::class)
     @Test
-    fun fetchMoviesFromNetworkTestThenReturnSuccessResponse() = runTest {
+    fun fetchMoviesFromNetworkTestThenReturnSuccessResponse() = runBlocking {
         enqueueResponse("/UpcomingMoviesReponse.json")
         val response = service.fetchUpcomingMovies(1)
 
@@ -36,7 +36,7 @@ class MoviesServiceTest : AbstractAPIService<MoviesService>() {
 
     @Throws(IOException::class)
     @Test
-    fun fetchMovieDetailsFromNetworkTestThenReturnSuccessResponse() = runTest {
+    fun fetchMovieDetailsFromNetworkTestThenReturnSuccessResponse() = runBlocking {
         enqueueResponse("/MovieDetailsResponse.json")
         val response = service.fetchMovieDetails(823464)
 
@@ -49,5 +49,22 @@ class MoviesServiceTest : AbstractAPIService<MoviesService>() {
             `is`("Godzilla x Kong: The New Empire")
         )
     }
+
+//    @Test
+//    fun fetchMovieDetailsFromNetworkTestThenReturnHttpError() = runBlocking {
+//        mockWebServer.enqueue(
+//            MockResponse()
+//                .setResponseCode(HTTP_CODE_AUTHENTICATION_FAILED)
+//                .setBody("{}")
+//        )
+//
+//        val result = getDailyForecasts.invoke("").toList()
+//        val response = service.fetchMovieDetails(823464)
+//
+//
+//        assertThat(response.).isNotNull()
+//        assertThat(response).isEqualTo(HTTP_CODE_AUTHENTICATION_FAILED)
+//
+//    }
 
 }
