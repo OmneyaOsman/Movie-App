@@ -15,7 +15,7 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
-class PagedKeyRemoteMediator(
+class PagingKeyRemoteMediator(
     private val query: MovieType,
     private val db: MoviesDatabase,
     private val moviesService: MoviesService

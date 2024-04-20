@@ -1,7 +1,6 @@
 package banquemisr.challenge05.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import banquemisr.challenge05.data.db.GenereListConverter
 import banquemisr.challenge05.data.db.MoviesDatabase
@@ -11,7 +10,6 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -19,7 +17,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object DatabaseModule {
     @Singleton
     @Provides
     fun provideMovieDatabase(
