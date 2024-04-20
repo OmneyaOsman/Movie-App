@@ -2,7 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="MoviesDaoTest">
+        <State />
+      </entry>
+      <entry key="PagedKeyRemoteMediatorTest">
+        <State />
+      </entry>
+      <entry key="RemoteMediatorTest">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="whenDeleteMoviesThenRetrieveListOfMoviesIsEmpty()">
         <State />
       </entry>
     </value>
