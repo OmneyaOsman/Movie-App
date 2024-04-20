@@ -1,8 +1,6 @@
 package banquemisr.challenge05.data.db
 
-import banquemisr.challenge05.data.model.Genre
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import banquemisr.challenge05.data.entities.GenreEntity
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.squareup.moshi.JsonAdapter
@@ -16,18 +14,18 @@ class GenereListConverter @Inject constructor(
     private val moshi: Moshi,
 ) {
     @TypeConverter
-    fun fromString(value: String): List<Genre>? {
+    fun fromString(value: String): List<GenreEntity>? {
         val listType =
-            Types.newParameterizedType(List::class.java, Genre::class.java)
-        val adapter: JsonAdapter<List<Genre>> = moshi.adapter(listType)
+            Types.newParameterizedType(List::class.java, GenreEntity::class.java)
+        val adapter: JsonAdapter<List<GenreEntity>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun fromInfoType(type: List<Genre>?): String {
+    fun fromInfoType(type: List<GenreEntity>?): String {
         val listType =
-            Types.newParameterizedType(List::class.java, Genre::class.java)
-        val adapter: JsonAdapter<List<Genre>> = moshi.adapter(listType)
+            Types.newParameterizedType(List::class.java, GenreEntity::class.java)
+        val adapter: JsonAdapter<List<GenreEntity>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }

@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.model
+package banquemisr.challenge05.data.entities
 
 
 import com.squareup.moshi.Json
@@ -9,7 +9,7 @@ data class MoviesResponse(
     @Json(name = "page")
     val page: Int,
     @Json(name = "results")
-    val movieResponseList: List<MovieModel>,
+    val movieResponseList: List<MovieEntity>,
     @Json(name = "total_pages")
     val totalPages: Int,
     @Json(name = "total_results")

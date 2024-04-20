@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.model
+package banquemisr.challenge05.data.entities
 
 
 import androidx.compose.runtime.Immutable
@@ -9,14 +9,13 @@ import com.squareup.moshi.JsonClass
 @Immutable
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "Movie", primaryKeys = [("id")])
-//@TypeConverters(GenereListConverter::class)
-data class MovieModel(
+data class MovieEntity(
     @Json(name = "id")
     val id: Int,
     @Json(name = "backdrop_path")
     val backdropPath: String,
     @Json(name = "genres")
-    val genres: List<Genre>?,
+    val genres: List<GenreEntity>?,
     @Json(name = "original_language")
     val originalLanguage: String,
     @Json(name = "original_title")

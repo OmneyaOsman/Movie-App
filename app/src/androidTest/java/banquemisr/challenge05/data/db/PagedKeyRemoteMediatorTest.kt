@@ -1,28 +1,5 @@
 package banquemisr.challenge05.data.db
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadType
-import androidx.paging.PagingConfig
-import androidx.paging.PagingState
-import androidx.paging.RemoteMediator
-import banquemisr.challenge05.DispatcherCoroutinesRule
-import banquemisr.challenge05.data.model.MovieModel
-import banquemisr.challenge05.data.model.MovieType
-import banquemisr.challenge05.data.model.MoviesResponse
-import banquemisr.challenge05.data.remote.api.MoviesService
-import banquemisr.challenge05.data.utils.MockUtil
-import junit.framework.TestCase.assertFalse
-import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-
 //@ExperimentalPagingApi
 //class PagedKeyRemoteMediatorTest {
 //
@@ -96,7 +73,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 //        mockDb,
 //        mockApi
 //    )
-//    val pagingState = PagingState<Int, MovieModel>(
+//    val pagingState = PagingState<Int, MovieEntity>(
 //        listOf(),
 //        null,
 //        PagingConfig(10),

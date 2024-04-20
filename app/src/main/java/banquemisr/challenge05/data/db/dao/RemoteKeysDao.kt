@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import banquemisr.challenge05.data.model.RemoteKeys
+import banquemisr.challenge05.data.entities.RemoteKeys
 
 @Dao
 interface RemoteKeysDao {

@@ -95,10 +95,10 @@ class MoviesDaoTest{
         list.takeIf { it.isNotEmpty() }
             ?.let { dao.insertAll(it) }
 
-        val retrievedMovieModel = dao.getMovieDetails(list[0].id)
+        val retrievedMovieEntity = dao.getMovieDetails(list[0].id)
 
-        MatcherAssert.assertThat(retrievedMovieModel, IsEqual(list[0]))
-        MatcherAssert.assertThat(retrievedMovieModel.genres?.get(0)?.name, IsEqual(list[0].genres?.get(0)?.name))
+        MatcherAssert.assertThat(retrievedMovieEntity, IsEqual(list[0]))
+        MatcherAssert.assertThat(retrievedMovieEntity.genres?.get(0)?.name, IsEqual(list[0].genres?.get(0)?.name))
     }
 
 }

@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.model
+package banquemisr.challenge05.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

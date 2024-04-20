@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.model
+package banquemisr.challenge05.data.entities
 
 sealed interface MovieType {
     object NOW_PLAYING: MovieType

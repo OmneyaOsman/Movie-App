@@ -1,15 +1,15 @@
 package banquemisr.challenge05.data.utils
 
-import banquemisr.challenge05.data.model.Genre
-import banquemisr.challenge05.data.model.MovieModel
+import banquemisr.challenge05.data.entities.GenreEntity
+import banquemisr.challenge05.data.entities.MovieEntity
 
 object MockUtil {
 
     fun moviesList() =  listOf(
-        MovieModel(
+        MovieEntity(
             929590,
             "/uv2twFGMk2qBdyJBJAVcrpRtSa9.jpg",
-            listOf(Genre(0,"genre 1")),
+            listOf(GenreEntity(0,"genre 1")),
             "en",
             "Civil War",
             "In the near future, a group of war journalists attempt to survive while reporting the truth as the United States stands on the brink of civil war.",
@@ -19,9 +19,9 @@ object MockUtil {
             "Civil War",
             7.404,
             120, toString()
-        ), MovieModel(
+        ), MovieEntity(
             823464, "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg",
-            listOf(Genre(0,"genre")),
+            listOf(GenreEntity(0,"genre")),
             "en",
             "Godzilla x Kong: The New Empire",
             "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",

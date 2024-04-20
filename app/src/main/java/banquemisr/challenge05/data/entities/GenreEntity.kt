@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.model
+package banquemisr.challenge05.data.entities
 
 
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 @Entity("Genre",primaryKeys = [("id")])
-data class Genre(
+data class GenreEntity(
     @Json(name = "id")
     val id: Int,
     @Json(name = "name")

@@ -5,21 +5,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import banquemisr.challenge05.data.model.MovieModel
+import banquemisr.challenge05.data.entities.MovieEntity
 
 @Dao
 interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(movies: List<MovieModel>)
+    suspend fun insertAll(movies: List<MovieEntity>)
 
     @Query("SELECT * FROM Movie WHERE movieType LIKE :query")
-    fun getMoviesPagingSource(query: String): PagingSource<Int, MovieModel>
+    fun getMoviesPagingSource(query: String): PagingSource<Int, MovieEntity>
 
     @Query("SELECT * FROM Movie")
-    suspend fun getMovies(): List<MovieModel>
+    suspend fun getMovies(): List<MovieEntity>
 
     @Query("SELECT * FROM Movie WHERE id LIKE :movieId || '%'")
-    suspend fun getMovieDetails(movieId: Int): MovieModel
+    suspend fun getMovieDetails(movieId: Int): MovieEntity
 
     @Query("DELETE FROM Movie ")
     suspend fun deleteMovies()

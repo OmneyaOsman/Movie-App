@@ -14,9 +14,6 @@
       <entry key="app">
         <State />
       </entry>
-      <entry key="whenDeleteMoviesThenRetrieveListOfMoviesIsEmpty()">
-        <State />
-      </entry>
     </value>
   </component>
 </project>

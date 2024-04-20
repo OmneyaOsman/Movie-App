@@ -5,12 +5,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import banquemisr.challenge05.data.db.dao.MoviesDao
 import banquemisr.challenge05.data.db.dao.RemoteKeysDao
-import banquemisr.challenge05.data.model.Genre
-import banquemisr.challenge05.data.model.MovieModel
-import banquemisr.challenge05.data.model.RemoteKeys
+import banquemisr.challenge05.data.entities.GenreEntity
+import banquemisr.challenge05.data.entities.MovieEntity
+import banquemisr.challenge05.data.entities.RemoteKeys
 
 @Database(
-    entities = [MovieModel::class, Genre::class, RemoteKeys::class],
+    entities = [MovieEntity::class, GenreEntity::class, RemoteKeys::class],
     version = 7,
     exportSchema = false
 )

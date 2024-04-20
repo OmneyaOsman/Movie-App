@@ -1,6 +1,5 @@
 package banquemisr.challenge05.data.db
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingConfig
@@ -10,27 +9,21 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import banquemisr.challenge05.DispatcherCoroutinesRule
 import banquemisr.challenge05.data.db.dao.MoviesDao
-import banquemisr.challenge05.data.model.MovieModel
-import banquemisr.challenge05.data.model.MovieType
-import banquemisr.challenge05.data.model.MoviesResponse
+import banquemisr.challenge05.data.entities.MovieEntity
+import banquemisr.challenge05.data.entities.MovieType
+import banquemisr.challenge05.data.entities.MoviesResponse
 import banquemisr.challenge05.data.remote.api.MoviesService
 import banquemisr.challenge05.data.utils.MockUtil
 import com.squareup.moshi.Moshi
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 @ExperimentalPagingApi
 @RunWith(MockitoJUnitRunner::class)
@@ -76,7 +69,7 @@ class RemoteMediatorTest {
             movieDb,
             mockApi
         )
-        val pagingState = PagingState<Int, MovieModel>(
+        val pagingState = PagingState<Int, MovieEntity>(
             listOf(),
             null,
             PagingConfig(10),
