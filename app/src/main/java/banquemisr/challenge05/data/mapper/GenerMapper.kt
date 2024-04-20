@@ -1,13 +1,21 @@
 package banquemisr.challenge05.data.mapper
 
-import banquemisr.challenge05.core.base.Mapper
-import banquemisr.challenge05.data.model.Genre
+import banquemisr.challenge05.data.entities.GenreEntity
+import banquemisr.challenge05.domain.model.Genre
 import javax.inject.Inject
 
-//class GenreMapper @Inject constructor() : Mapper<Genre, GenreEntity> {
-//
-//    override fun mapToDomainModel(from: Genre): GenreEntity = GenreEntity(
-//        id = from.id,
-//        name = from.name
-//    )
-//}
+object GenreMapper : EntityMapper<List<Genre>, List<GenreEntity>> {
+
+    override fun asDomain(entity: List<GenreEntity>): List<Genre> {
+        return entity.map { genreEntity ->
+            Genre(
+                id = genreEntity.id,
+                name = genreEntity.name
+            )
+        }
+    }
+}
+
+fun List<GenreEntity>?.asDomain(): List<Genre> {
+    return GenreMapper.asDomain(this.orEmpty())
+}

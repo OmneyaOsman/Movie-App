@@ -1,11 +1,9 @@
 package banquemisr.challenge05.domain.model
 
-import banquemisr.challenge05.data.entities.GenreEntity
-
 data class Movie(
     val id: Int,
     val backdropPath: String,
-    val genres: List<GenreEntity>?,
+    val genres: List<Genre>?,
     val originalLanguage: String,
     val originalTitle: String,
     val overview: String,
