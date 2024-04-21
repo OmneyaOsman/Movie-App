@@ -137,6 +137,7 @@ android {
         implementation(libs.androidx.paging.runtime.ktx)
         implementation(libs.androidx.paging.compose)
         implementation(libs.androidx.room.paging)
+        implementation("androidx.paging:paging-common-ktx:3.2.1")
 
         // Pager Indicator
         implementation(libs.accompanist.pager)
@@ -156,12 +157,6 @@ android {
         testImplementation(libs.androidx.junit)
         testImplementation(libs.androidx.test.runner)
 
-
-
-//        androidTestImplementation("io.mockk:mockk:1.13.8")
-//        androidTestImplementation ("io.mockk:mockk-android:1.13.8")
-//        androidTestImplementation(libs.mockito.core)
-//        androidTestImplementation(libs.mockito.kotlin)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.junit)
         androidTestImplementation(libs.androidx.core.testing)

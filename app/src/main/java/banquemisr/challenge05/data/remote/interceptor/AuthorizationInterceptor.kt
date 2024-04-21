@@ -8,6 +8,7 @@ class AuthorizationInterceptor(private val accessToken : String) : Interceptor {
         chain.request().let {
             it.newBuilder()
                 .addHeader("Authorization", "Bearer $accessToken")
+                .addHeader("accept", "application/json")
                 .run {
                     chain.proceed(this.build())
                 }

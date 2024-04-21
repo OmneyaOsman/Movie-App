@@ -10,6 +10,8 @@ import banquemisr.challenge05.data.entities.RemoteKeys
 interface RemoteKeysDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(remoteKey: List<RemoteKeys>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertKey(key: RemoteKeys)
     @Query("Select * From remote_key Where movie_id = :id")
     suspend fun getRemoteKeyByMovieID(id: Int): RemoteKeys?
     @Query("Delete From remote_key")

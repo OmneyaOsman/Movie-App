@@ -11,7 +11,7 @@ import banquemisr.challenge05.data.entities.RemoteKeys
 
 @Database(
     entities = [MovieEntity::class, GenreEntity::class, RemoteKeys::class],
-    version = 7,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(value = [GenereListConverter::class])

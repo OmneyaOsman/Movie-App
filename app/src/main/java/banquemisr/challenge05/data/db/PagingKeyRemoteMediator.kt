@@ -46,13 +46,20 @@ class PagingKeyRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, MovieEntity>
     ): MediatorResult {
+       return  try { Log.e("Mediator","Inserting items reversed ------->  Load")
+
         val page = when (loadType) {
             LoadType.REFRESH -> {
+                 Log.e("Mediator","Inserting items reversed ------->  LoadType.REFRESH")
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextKey?.minus(1) ?: MOVIES_STARTING_PAGE_INDEX
+//                1
+
             }
 
             LoadType.PREPEND -> {
+                 Log.e("Mediator","Inserting items reversed ------->  LoadType.PREPEND")
+//                return MediatorResult.Success(endOfPaginationReached = true)
                 val remoteKeys = getRemoteKeyForFirstItem(state)
                 val prevKey = remoteKeys?.prevKey
                 if (prevKey == null) {
@@ -71,20 +78,25 @@ class PagingKeyRemoteMediator(
             }
         }
 
-        try {
+
             // Suspending network load via Retrofit. This doesn't need to be
             // wrapped in a withContext(Dispatcher.IO) { ... } block since
             // Retrofit's Coroutine CallAdapter dispatches on a worker
             // thread.
-            Log.e("NetworkModule","PagingKey")
-
+             Log.e("Mediator","Inserting items reversed ------->  getQuery")
             val response = when (query) {
                 MovieType.POPULAR -> moviesService.fetchPopularMovies(page = page)
                 MovieType.NOW_PLAYING -> moviesService.fetchNowPlayingMovies(page = page)
                 MovieType.UPCOMING -> moviesService.fetchUpcomingMovies(page = page)
             }
+             Log.e("Mediator","Inserting items reversed ------->  response for query $query")
             val movies: List<MovieEntity> = response.movieResponseList ?: emptyList()
+             Log.e("Mediator","Inserting items reversed ------->  response= $movies")
+
             val endOfPaginationReached = response.movieResponseList.isEmpty()
+
+             Log.e("Mediator","Inserting items reversed ------->  endOfPaginationReached= $endOfPaginationReached")
+
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     remoteKeysDao.clearRemoteKeys()
@@ -100,11 +112,15 @@ class PagingKeyRemoteMediator(
                         nextKey = nextKey
                     )
                 }
+
                 // Insert new movies into database, which invalidates the
                 // current PagingData, allowing Paging to present the updates
                 // in the DB.
                 db.remoteKeysDao().insertAll(remoteKeys)
                 db.moviesDao().insertAll(movies)
+                Log.e("Mediator","Inserting items reversed ------->  remoteKeys= ${db.remoteKeysDao().getCreationTime()}")
+                Log.e("Mediator","Inserting items reversed ------->  remoteKeys= ${db.moviesDao().getMovies()}")
+
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: IOException) {

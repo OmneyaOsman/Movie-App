@@ -60,7 +60,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         Log.e("NetworkModule", query.toString())
         return Pager(
             config = PagingConfig(pageSize = pageSize),
-            remoteMediator = PagingKeyRemoteMediator(query, db, api)
+            remoteMediator = PagingKeyRemoteMediator( query,db, api)
         ) {
             db.moviesDao().getMoviesPagingSource(query.toString())
         }.flow

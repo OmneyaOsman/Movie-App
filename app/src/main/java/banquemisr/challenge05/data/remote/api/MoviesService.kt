@@ -8,25 +8,25 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoviesService {
-    @GET("/now_playing")
+    @GET("movie/now_playing")
     suspend fun fetchNowPlayingMovies(
-        @Query("page") page: Int?,
-        @Query("language") language: String = Constants.LANGUAGE
+        @Query("language") language: String = Constants.LANGUAGE,
+        @Query("page") page: Int?
     ): MoviesResponse
 
-    @GET("/upcoming")
+    @GET("movie/upcoming")
     suspend fun fetchUpcomingMovies(
         @Query("page") page: Int?,
         @Query("language") language: String = Constants.LANGUAGE
     ): MoviesResponse
 
-    @GET("/popular")
+    @GET("movie/popular")
     suspend fun fetchPopularMovies(
         @Query("page") page: Int?,
         @Query("language") language: String = Constants.LANGUAGE
     ): MoviesResponse
 
-    @GET("{movie_id}")
+    @GET("movie/{movie_id}")
     suspend fun fetchMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("language") language: String = Constants.LANGUAGE
