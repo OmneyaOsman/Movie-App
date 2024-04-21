@@ -30,7 +30,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -40,13 +39,21 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideAuthorizationInterceptor(): AuthorizationInterceptor =
+        AuthorizationInterceptor(BuildConfig.ACCESS_TOKEN)
+
+    @Provides
+    @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor { logMessage ->
-            Timber.e(logMessage)
-        }.apply {
-            level =
-                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        HttpLoggingInterceptor().apply {
+            level =HttpLoggingInterceptor.Level.BODY
         }
+//        HttpLoggingInterceptor { logMessage ->
+//            Log.e("NetworkModule" , logMessage)
+//        }.apply {
+//            level =
+//                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+//        }
 
 
     @Provides

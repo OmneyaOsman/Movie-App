@@ -1,5 +1,6 @@
 package banquemisr.challenge05.data.repo
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.mapLatest
 
 class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : MoviesRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getUpComingMovies(): Flow<PagingData<Movie>> =
+    override fun getUpComingMovies(): Flow<PagingData<Movie>> =
         getMovies(MovieType.UPCOMING).mapLatest { pagingData ->
             pagingData.map { model ->
                 model.asDomain()
@@ -28,7 +29,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getPopularMovies(): Flow<PagingData<Movie>> =
+    override fun getPopularMovies(): Flow<PagingData<Movie>> =
         getMovies(MovieType.POPULAR).mapLatest { pagingData ->
             pagingData.map { model ->
                 model.asDomain()
@@ -36,13 +37,17 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getNowPlayingMovies(): Flow<PagingData<Movie>> =
-        getMovies(MovieType.NOW_PLAYING).mapLatest { pagingData ->
+    override fun getNowPlayingMovies(): Flow<PagingData<Movie>> {
+        Log.e("NetworkModule", "getNowPlayingMovies Repo")
+        return getMovies(MovieType.NOW_PLAYING).mapLatest { pagingData ->
+            Log.e("NetworkModule", "getNowPlayingMovies Repo")
             pagingData.map { model ->
+                Log.e("NetworkModule", "getNowPlayingMovies asDomain")
+
                 model.asDomain()
             }
         }
-
+    }
     override suspend fun getMovieDetails(movieId: Int): Movie =
         api.fetchMovieDetails(movieId).asDomain()
 
@@ -52,6 +57,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         query: MovieType,
         pageSize: Int = Constants.PAGE_SIZE
     ): Flow<PagingData<MovieEntity>> {
+        Log.e("NetworkModule", query.toString())
         return Pager(
             config = PagingConfig(pageSize = pageSize),
             remoteMediator = PagingKeyRemoteMediator(query, db, api)

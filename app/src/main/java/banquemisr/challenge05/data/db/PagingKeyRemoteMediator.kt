@@ -1,5 +1,6 @@
 package banquemisr.challenge05.data.db
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -75,6 +76,8 @@ class PagingKeyRemoteMediator(
             // wrapped in a withContext(Dispatcher.IO) { ... } block since
             // Retrofit's Coroutine CallAdapter dispatches on a worker
             // thread.
+            Log.e("NetworkModule","PagingKey")
+
             val response = when (query) {
                 MovieType.POPULAR -> moviesService.fetchPopularMovies(page = page)
                 MovieType.NOW_PLAYING -> moviesService.fetchNowPlayingMovies(page = page)
@@ -93,7 +96,7 @@ class PagingKeyRemoteMediator(
                     RemoteKeys(
                         movieID = it.id,
                         prevKey = prevKey,
-                        currentPage = page!!,
+                        currentPage = page,
                         nextKey = nextKey
                     )
                 }

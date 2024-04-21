@@ -1,29 +1,26 @@
 package banquemisr.challenge05.data.mapper
 
-import banquemisr.challenge05.data.entities.GenreEntity
 import banquemisr.challenge05.data.entities.MovieEntity
-import banquemisr.challenge05.domain.model.Genre
 import banquemisr.challenge05.domain.model.Movie
-import javax.inject.Inject
 
 object MovieMapper : EntityMapper<Movie, MovieEntity> {
 
-    override fun asDomain(movieEntity: MovieEntity): Movie {
+    override fun asDomain(entity: MovieEntity): Movie {
         return Movie(
-            id = movieEntity.id,
-            backdropPath = movieEntity.backdropPath,
-            genres = movieEntity.genres.asDomain(),
-            originalLanguage = movieEntity.originalLanguage,
-            originalTitle = movieEntity.originalTitle,
-            overview = movieEntity.overview,
-            popularity = movieEntity.popularity,
-            releaseDate = movieEntity.releaseDate,
-            posterPath = movieEntity.posterPath,
-            runtime = movieEntity.runtime,
-            title = movieEntity.title,
-            voteAverage = movieEntity.voteAverage,
-            voteCount = movieEntity.voteCount,
-            movieType = movieEntity.movieType
+            id = entity.id,
+            backdropPath = entity.backdropPath,
+            genres = entity.genres.asDomain(),
+            originalLanguage = entity.originalLanguage,
+            originalTitle = entity.originalTitle,
+            overview = entity.overview,
+            popularity = entity.popularity,
+            releaseDate = entity.releaseDate,
+            posterPath = entity.posterPath,
+            runtime = entity.runtime,
+            title = entity.title,
+            voteAverage = entity.voteAverage,
+            voteCount = entity.voteCount,
+            movieType = entity.movieType
         )
     }
 }

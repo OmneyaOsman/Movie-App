@@ -6,10 +6,10 @@ import timber.log.Timber
 
 @HiltAndroidApp
 class MoviesApp :Application(){
-//    override fun onCreate() {
-//        super.onCreate()
-//        setupTimber()
-//    }
+    override fun onCreate() {
+        super.onCreate()
+        setupTimber()
+    }
 }
 private fun setupTimber() =
     object : Timber.DebugTree() {

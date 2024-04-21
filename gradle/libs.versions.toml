@@ -32,6 +32,12 @@ androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.2"
 mockito = "5.11.0"
 mockito-kotlin = "5.2.1"
+androidxHiltNavigationCompose = "1.2.0"
+androidxComposeNavigation = "2.7.7"
+
+#hilt-navigation = "1.0.0-alpha03"
+#androidxNavigation = "2.5.0"
+
 
 
 
@@ -59,6 +65,9 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxComposeNavigation" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+
 
 #Room
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }

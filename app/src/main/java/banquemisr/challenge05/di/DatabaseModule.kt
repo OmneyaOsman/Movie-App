@@ -48,11 +48,4 @@ object DatabaseModule {
         return GenereListConverter(moshi)
     }
 
-    @Provides
-    @Singleton
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder()
-            .addLast(KotlinJsonAdapterFactory())
-            .build()
-    }
 }

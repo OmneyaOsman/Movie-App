@@ -34,7 +34,7 @@ class RemoteMediatorTest {
     private lateinit var mockApi: MoviesService
     private lateinit var movieDb: MoviesDatabase
     lateinit var movieDao: MoviesDao
-    private lateinit var remoteMediator: PagedKeyRemoteMediator
+    private lateinit var remoteMediator: PagingKeyRemoteMediator
 
 
     @Before
@@ -64,7 +64,7 @@ class RemoteMediatorTest {
     fun refreshLoadReturnsSuccessResultWhenMoreDataIsPresent() = runTest {
         val mockData = MoviesResponse(1, MockUtil.moviesList(), 50, 100)
 //        whenever(mockApi.fetchNowPlayingMovies(1)).thenReturn(mockData)
-        val remoteMediator = PagedKeyRemoteMediator(
+        val remoteMediator = PagingKeyRemoteMediator(
             MovieType.NOW_PLAYING,
             movieDb,
             mockApi

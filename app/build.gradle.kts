@@ -102,10 +102,14 @@ android {
         implementation(platform(libs.androidx.compose.bom))
         implementation(libs.androidx.ui)
         implementation(libs.androidx.ui.graphics)
-        implementation(libs.androidx.ui.tooling.preview)
+        debugImplementation(libs.androidx.ui.tooling.preview)
         implementation(libs.androidx.material3)
+        implementation(libs.androidx.navigation.compose)
+        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
+        implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-rc01")
 
         implementation(libs.hilt.android)
+        implementation(libs.androidx.hilt.navigation.compose)
         ksp(libs.hilt.android.compiler)
 
         // coroutines

@@ -28,6 +28,11 @@ internal object TestModule {
 
     @Provides
     @Singleton
+    fun provideAuthorizationInterceptor(): AuthorizationInterceptor =
+        AuthorizationInterceptor(BuildConfig.ACCESS_TOKEN)
+
+    @Provides
+    @Singleton
     fun provideGenereListConverter(moshi: Moshi): GenereListConverter {
         return GenereListConverter(moshi)
     }
