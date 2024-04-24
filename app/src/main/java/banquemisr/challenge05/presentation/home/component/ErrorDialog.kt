@@ -23,8 +23,9 @@ import androidx.compose.ui.window.Dialog
 fun ErrorDialog(
     errorMessage: String,
     onRetryClick: () -> Unit,
+    onDismiss: () -> Unit,
 ) {
-    Dialog(onDismissRequest = { }) {
+    Dialog(onDismiss) {
         Card(
             modifier = Modifier.size(300.dp),
             shape = RoundedCornerShape(25.dp)
