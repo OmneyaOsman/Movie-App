@@ -1,6 +1,7 @@
 package banquemisr.challenge05.presentation.home.component
 
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,26 +35,31 @@ fun MovieList(
         pagingItem.apply {
             when {
                 loadState.refresh is LoadState.Loading -> {
+                    Log.e("MovieList" , "Loading")
                     item { PageLoader(modifier = Modifier.fillParentMaxSize()) }
                 }
 
                 loadState.refresh is LoadState.Error -> {
+                    Log.e("MovieList" , "Error")
+
                     val error = pagingItem.loadState.refresh as LoadState.Error
                     item {
                         ErrorDialog(
                             errorMessage = error.error.localizedMessage!!,
                             onRetryClick = { retry() },
-                        )
+                        ) {  }
                     }
                 }
 
                 loadState.append is LoadState.Error -> {
+                    Log.e("MovieList" , "Error")
+
                     val error = pagingItem.loadState.append as LoadState.Error
                     item {
                         ErrorDialog(
                             errorMessage = error.error.localizedMessage!!,
                             onRetryClick = { retry() },
-                        )
+                        ) {  }
                     }
                 }
             }

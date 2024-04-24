@@ -13,7 +13,6 @@ import banquemisr.challenge05.data.remote.Constants.MOVIES_STARTING_PAGE_INDEX
 import banquemisr.challenge05.data.remote.api.MoviesService
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class PagingKeyRemoteMediator(
@@ -26,21 +25,16 @@ class PagingKeyRemoteMediator(
     private val remoteKeysDao = db.remoteKeysDao()
 
     override suspend fun initialize(): InitializeAction {
-        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
-        return if (System.currentTimeMillis() - (db.remoteKeysDao().getCreationTime()
-                ?: 0) < cacheTimeout
-        ) {
-            InitializeAction.SKIP_INITIAL_REFRESH
-        } else {
-            InitializeAction.LAUNCH_INITIAL_REFRESH
-        }
+//        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+//        return if (System.currentTimeMillis() - (db.remoteKeysDao().getCreationTime()
+//                ?: 0) < cacheTimeout
+//        ) {
+//            InitializeAction.SKIP_INITIAL_REFRESH
+//        } else {
+//            InitializeAction.LAUNCH_INITIAL_REFRESH
+//        }
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
-
-//    override suspend fun initialize(): InitializeAction {
-//        // Require that remote REFRESH is launched on initial load and succeeds before launching
-//        // remote PREPEND / APPEND.
-//        return InitializeAction.LAUNCH_INITIAL_REFRESH
-//    }
 
     override suspend fun load(
         loadType: LoadType,
@@ -108,7 +102,7 @@ class PagingKeyRemoteMediator(
                     RemoteKeys(
                         movieID = it.id,
                         prevKey = prevKey,
-                        currentPage = page,
+//                        currentPage = page,
                         nextKey = nextKey
                     )
                 }

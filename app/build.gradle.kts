@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.Packaging
 import com.android.build.api.variant.BuildConfigField
 
 plugins {
@@ -65,6 +66,16 @@ android {
             excludes += "META-INF/LICENSE.md"
             excludes += "META-INF/LICENSE-notice.md"
         }
+    }
+    testOptions{
+        fun Packaging.() {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
+    }
+    buildFeatures {
+        viewBinding = true
     }
         testOptions.unitTests {
             isIncludeAndroidResources = true
@@ -137,7 +148,7 @@ android {
         implementation(libs.androidx.paging.runtime.ktx)
         implementation(libs.androidx.paging.compose)
         implementation(libs.androidx.room.paging)
-        implementation("androidx.paging:paging-common-ktx:3.2.1")
+        testImplementation("androidx.paging:paging-common-ktx:3.2.1")
 
         // Pager Indicator
         implementation(libs.accompanist.pager)
@@ -145,6 +156,8 @@ android {
 
 //    implementation(libs.junit)
 //  unit tests
+        testImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
+        testImplementation("io.mockk:mockk:1.13.10")
         testImplementation(libs.junit)
         testImplementation(libs.okhttp.mockserver)
         testImplementation(libs.kotlinx.coroutines.test)
@@ -173,12 +186,12 @@ android {
         androidTestImplementation(libs.kotlinx.coroutines.test)
         androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
         kspAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
-
-//    // Local unit tests
-//    testImplementation("com.squareup.okhttp3:okhttp:${okHttp}")
-
-        // Instrumentation tests
-
-//    androidTestImplementation("com.squareup.okhttp3:okhttp:${okHttp}")
+//        androidTestImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
+//        androidTestImplementation("io.mockk:mockk:1.13.10")
+        androidTestImplementation ("io.mockk:mockk-android:1.13.10")
+        androidTestImplementation( "io.mockk:mockk-agent:1.13.10")
+        androidTestImplementation( libs.mockito.core)
+        androidTestImplementation( libs.mockito.kotlin)
+        implementation("com.google.accompanist:accompanist-swiperefresh:0.24.7-alpha")
 
     }

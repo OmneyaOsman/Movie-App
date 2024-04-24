@@ -10,7 +10,7 @@ data class RemoteKeys(
     @ColumnInfo(name = "movie_id")
     val movieID: Int,
     val prevKey: Int?,
-    val currentPage: Int,
+//    val currentPage: Int,
     val nextKey: Int?,
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()

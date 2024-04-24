@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.paging.compose.LazyPagingItems
+import banquemisr.challenge05.data.remote.Constants
+import banquemisr.challenge05.domain.model.Movie
 import coil.compose.AsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlin.math.absoluteValue
-
-import banquemisr.challenge05.domain.model.Movie
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -33,8 +33,8 @@ fun NowPlayingHorizontalPager(
 ) {
     val state = rememberPagerState()
     HorizontalPager(
-    state = state,
-    count = nowPlayingPagingItem.itemCount
+        state = state,
+        count = nowPlayingPagingItem.itemCount
     ) { page ->
         val pageOffset = (state.currentPage - page) + state.currentPageOffset
         val scaleFactor = 0.75f + (1f - 0.75f) * (1f - pageOffset.absoluteValue)
@@ -93,7 +93,7 @@ fun NowPlayingItem(
                         y = 0,
                     )
                 },
-            model = "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+            model = "${Constants.IMAGE_BASE_URL}${movie.posterPath}",
             contentDescription = "Now Playing Image",
             contentScale = ContentScale.Crop
         )

@@ -34,6 +34,9 @@ mockito = "5.11.0"
 mockito-kotlin = "5.2.1"
 androidxHiltNavigationCompose = "1.2.0"
 androidxComposeNavigation = "2.7.7"
+material = "1.11.0"
+activity = "1.8.0"
+constraintlayout = "2.1.4"
 
 #hilt-navigation = "1.0.0-alpha03"
 #androidxNavigation = "2.5.0"
@@ -104,6 +107,9 @@ androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-kotlin  = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
