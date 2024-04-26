@@ -7,7 +7,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import banquemisr.challenge05.data.db.GenereListConverter
 import banquemisr.challenge05.data.db.MoviesDatabase
-import banquemisr.challenge05.data.utils.MockUtil
+import banquemisr.challenge05.data.utils.MoviesFactory
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -21,7 +21,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4ClassRunner::class)
 @SmallTest
 class MoviesDaoTest{
 
@@ -54,7 +53,7 @@ class MoviesDaoTest{
     @Test
     fun whenInsertMoviesThenRetrieveListOfMovies() = runTest {
         //Arrange
-        val list = MockUtil.moviesList()
+        val list = MoviesFactory.moviesList()
 
         list.takeIf { it.isNotEmpty() }
             ?.let { dao.insertAll(it) }
@@ -71,7 +70,7 @@ class MoviesDaoTest{
     @Test
     fun whenDeleteMoviesThenRetrieveListOfMoviesIsEmpty() = runTest {
         //Arrange
-        val list = MockUtil.moviesList()
+        val list = MoviesFactory.moviesList()
 
         list.takeIf { it.isNotEmpty() }
             ?.let { dao.insertAll(it) }
@@ -90,7 +89,7 @@ class MoviesDaoTest{
     @Test
     fun whenInsertMoviesThenRetrieveMovieDetails() = runTest {
         //Arrange
-        val list = MockUtil.moviesList()
+        val list = MoviesFactory.moviesList()
 
         list.takeIf { it.isNotEmpty() }
             ?.let { dao.insertAll(it) }

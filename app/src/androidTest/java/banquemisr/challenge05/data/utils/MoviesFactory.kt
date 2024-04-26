@@ -1,9 +1,11 @@
 package banquemisr.challenge05.data.utils
 
+import androidx.paging.PagingConfig
+import androidx.paging.PagingState
 import banquemisr.challenge05.data.entities.GenreEntity
 import banquemisr.challenge05.data.entities.MovieEntity
 
-object MockUtil {
+object MoviesFactory {
 
     fun moviesList() =  listOf(
         MovieEntity(
@@ -32,5 +34,12 @@ object MockUtil {
             6.699,
             654, toString()
         )
+    )
+
+    val mockedPagingState = PagingState<Int, MovieEntity>(
+        listOf(),
+        null,
+        PagingConfig(10),
+        10
     )
 }

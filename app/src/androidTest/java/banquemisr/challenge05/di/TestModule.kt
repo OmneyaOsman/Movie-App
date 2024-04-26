@@ -39,7 +39,7 @@ internal object TestModule {
 
     fun provideMovieDatabase(
         application: Application,
-        genereListConverter: GenereListConverter, moshi: Moshi
+        genereListConverter: GenereListConverter
     ): MoviesDatabase = Room.inMemoryDatabaseBuilder(
         application,
         MoviesDatabase::class.java

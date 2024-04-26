@@ -38,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
         compose = true
@@ -67,7 +67,7 @@ android {
             excludes += "META-INF/LICENSE-notice.md"
         }
     }
-    testOptions{
+    testOptions {
         fun Packaging.() {
             jniLibs {
                 useLegacyPackaging = true
@@ -77,121 +77,127 @@ android {
     buildFeatures {
         viewBinding = true
     }
-        testOptions.unitTests {
-            isIncludeAndroidResources = true
-            isReturnDefaultValues = true
-        }
+    testOptions.unitTests {
+        isIncludeAndroidResources = true
+        isReturnDefaultValues = true
     }
-    androidComponents {
-        onVariants {
-            it.buildConfigFields.put(
-                "BASE_URL", BuildConfigField(
-                    "String", "\"" + project.properties["BASE_URL"] as String + "\"", "BASE_URL"
-                )
+}
+androidComponents {
+    onVariants {
+        it.buildConfigFields.put(
+            "BASE_URL", BuildConfigField(
+                "String", "\"" + project.properties["BASE_URL"] as String + "\"", "BASE_URL"
             )
-            it.buildConfigFields.put(
-                "ACCESS_TOKEN", BuildConfigField(
-                    "String",
-                    "\"" + project.properties["ACCESS_TOKEN"] as String + "\"",
-                    "ACCESS_TOKEN"
-                )
+        )
+        it.buildConfigFields.put(
+            "ACCESS_TOKEN", BuildConfigField(
+                "String",
+                "\"" + project.properties["ACCESS_TOKEN"] as String + "\"",
+                "ACCESS_TOKEN"
             )
-        }
+        )
+    }
 
 //        sourceSets.getByName("test") {
 //            assets.srcDir(files("$projectDir/schemas"))
 //        }
 
 
-    }
+}
 
-    dependencies {
+dependencies {
 
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.lifecycle.runtime.ktx)
-        implementation(libs.androidx.activity.compose)
-        implementation(platform(libs.androidx.compose.bom))
-        implementation(libs.androidx.ui)
-        implementation(libs.androidx.ui.graphics)
-        debugImplementation(libs.androidx.ui.tooling.preview)
-        implementation(libs.androidx.material3)
-        implementation(libs.androidx.navigation.compose)
-        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
-        implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-rc01")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    debugImplementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-rc01")
 
-        implementation(libs.hilt.android)
-        implementation(libs.androidx.hilt.navigation.compose)
-        ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.android.compiler)
 
-        // coroutines
-        implementation(libs.kotlinx.coroutines)
+    // coroutines
+    implementation(libs.kotlinx.coroutines)
 
-        // network
-        implementation(libs.retrofit)
-        implementation(libs.retrofit.moshi)
-        implementation(libs.okhttp.interceptor)
-        implementation(libs.timber.logs)
+    // network
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.okhttp.interceptor)
+    implementation(libs.timber.logs)
 
-        // Coil Compose
-        implementation(libs.coil.compose)
+    // Coil Compose
+    implementation(libs.coil.compose)
 
-        // json parsing
-        implementation(libs.moshi)
-        ksp(libs.moshi.codegen)
+    // json parsing
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
 
-        //room
-        implementation(libs.room.runtime)
-        ksp(libs.room.compiler)
-        implementation(libs.room.ktx)
+    //room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
 
-        // Paging
-        implementation(libs.androidx.paging.runtime.ktx)
-        implementation(libs.androidx.paging.compose)
-        implementation(libs.androidx.room.paging)
-        testImplementation("androidx.paging:paging-common-ktx:3.2.1")
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.room.paging)
+    testImplementation("androidx.paging:paging-common-ktx:3.2.1")
+    testImplementation("androidx.paging:paging-testing:3.1.0")
 
-        // Pager Indicator
-        implementation(libs.accompanist.pager)
-        implementation(libs.accompanist.pager.indicator)
+
+    // Pager Indicator
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicator)
 
 //    implementation(libs.junit)
 //  unit tests
-        testImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
-        testImplementation("io.mockk:mockk:1.13.10")
-        testImplementation(libs.junit)
-        testImplementation(libs.okhttp.mockserver)
-        testImplementation(libs.kotlinx.coroutines.test)
-        debugImplementation(libs.androidx.ui.tooling)
-        debugImplementation(libs.androidx.ui.test.manifest)
-        testImplementation(libs.androidx.core.testing)
-        testImplementation(libs.androidx.test.core)
-        testImplementation(libs.truth)
-        testImplementation(libs.turbine)
-        testImplementation(libs.androidx.junit)
-        testImplementation(libs.androidx.test.runner)
+    testImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
+    testImplementation("io.mockk:mockk:1.13.10")
+    testImplementation(libs.mockito.core)
 
-        androidTestImplementation(libs.androidx.junit)
-        androidTestImplementation(libs.junit)
-        androidTestImplementation(libs.androidx.core.testing)
-        androidTestImplementation(libs.room.testing)
-        androidTestImplementation(libs.androidx.espresso.core)
-        androidTestImplementation(platform(libs.androidx.compose.bom))
-        androidTestImplementation(libs.androidx.ui.test.junit4)
-        androidTestImplementation(libs.androidx.core.testing)
-        androidTestImplementation(libs.androidx.test.core)
-        androidTestImplementation(libs.truth)
-        androidTestImplementation(libs.androidx.test.rules)
-        androidTestImplementation(libs.androidx.test.runner)
-        androidTestImplementation(libs.okhttp.mockserver)
-        androidTestImplementation(libs.kotlinx.coroutines.test)
-        androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-        kspAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.junit)
+    testImplementation(libs.okhttp.mockserver)
+    testImplementation(libs.kotlinx.coroutines.test)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.androidx.test.runner)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.room.testing)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.runner)
+//        androidTestImplementation(libs.okhttp.mockserver)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    kspAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
 //        androidTestImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
 //        androidTestImplementation("io.mockk:mockk:1.13.10")
-        androidTestImplementation ("io.mockk:mockk-android:1.13.10")
-        androidTestImplementation( "io.mockk:mockk-agent:1.13.10")
-        androidTestImplementation( libs.mockito.core)
-        androidTestImplementation( libs.mockito.kotlin)
-        implementation("com.google.accompanist:accompanist-swiperefresh:0.24.7-alpha")
+//        androidTestImplementation ("io.mockk:mockk-android:1.13.10")
+//        androidTestImplementation( "io.mockk:mockk-agent:1.13.10")
+//        androidTestImplementation( libs.mockito.core)
+//        androidTestImplementation( libs.mockito.kotlin)
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.7-alpha")
 
-    }
+
+}

@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagedKeyRemoteMediator
-import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
+//import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
 import banquemisr.challenge05.data.entities.MovieEntity
 import banquemisr.challenge05.data.entities.MovieType
 import banquemisr.challenge05.data.mapper.asDomain
@@ -58,12 +58,12 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         query: MovieType,
         pageSize: Int = Constants.PAGE_SIZE
     ): Flow<PagingData<MovieEntity>> {
-        Log.e("NetworkModule", query.toString())
+        Log.e("MoviesRepositoryImp", query.toString())
         return Pager(
             config = PagingConfig(pageSize = pageSize),
-            remoteMediator = PagedKeyRemoteMediator( db, api,query)
+            remoteMediator = PagedKeyRemoteMediator(query, db, api)
         ) {
-            db.moviesDao().getMoviesPagingSource(query.toString())
+            db.moviesDao().getMoviesPagingSource()
         }.flow
     }
 }

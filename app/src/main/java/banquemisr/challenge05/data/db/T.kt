@@ -13,99 +13,93 @@ import banquemisr.challenge05.data.remote.api.MoviesService
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class PagedKeyRemoteMediator(
-    private val db: MoviesDatabase,
-    private val gamesAPI: MoviesService,
-    private val query: MovieType
+    private val query: MovieType,
+    private val database: MoviesDatabase,
+    private val service: MoviesService,
 ) : RemoteMediator<Int, MovieEntity>() {
-    private val unsplashImageDao = db.moviesDao()
-    private val unsplashRemoteKeysDao = db.remoteKeysDao()
+
+    private val remoteKeyDao = database.remoteKeysDao()
+    private val movieDao = database.moviesDao()
+
+    override suspend fun initialize(): InitializeAction {
+        val remoteKey = database.withTransaction {
+            remoteKeyDao.getRemoteKeyByMovieID("discover_movie")
+        } ?: return InitializeAction.LAUNCH_INITIAL_REFRESH
+
+        val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
+
+        return if ((System.currentTimeMillis() - remoteKey.createdAt) >= cacheTimeout) {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        }
+    }
 
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, MovieEntity>
     ): MediatorResult {
         return try {
-            val currentPage = when (loadType) {
+            val page = when (loadType) {
                 LoadType.REFRESH -> {
-                    val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                    remoteKeys?.nextKey?.minus(1) ?: 1
+                    1
                 }
 
                 LoadType.PREPEND -> {
-                    val remoteKeys = getRemoteKeyForFirstItem(state)
-                    val prevPage = remoteKeys?.prevKey
-                        ?: return MediatorResult.Success(
-                            endOfPaginationReached = remoteKeys != null
-                        )
-                    prevPage
+                    return MediatorResult.Success(true)
                 }
 
                 LoadType.APPEND -> {
-                    val remoteKeys = getRemoteKeyForLastItem(state)
-                    val nextPage = remoteKeys?.nextKey
-                        ?: return MediatorResult.Success(
-                            endOfPaginationReached = remoteKeys != null
-                        )
-                    nextPage
+                    val remoteKey = database.withTransaction {
+                        remoteKeyDao.getRemoteKeyByMovieID("discover_movie")
+                    } ?: return MediatorResult.Success(true)
+
+                    if (remoteKey.nextKey == null) {
+                        return MediatorResult.Success(true)
+                    }
+
+                    remoteKey.nextKey
                 }
             }
 
-            val response = gamesAPI.fetchNowPlayingMovies(page = currentPage)
-            val endOfPaginationReached = response.movieResponseList.isEmpty()
+            val result = service.fetchPopularMovies(
+                page = page,
+            )
 
-            val prevPage = if (currentPage == 1) null else currentPage - 1
-            val nextPage = if (endOfPaginationReached) null else currentPage + 1
-
-            db.withTransaction {
+            database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    unsplashImageDao.deleteMovies()
-                    unsplashRemoteKeysDao.clearRemoteKeys()
+                    movieDao.deleteMovies()
                 }
-                val keys = response.movieResponseList.map { movieEntity ->
+
+                val nextPage = if (result.movieResponseList.isEmpty()) {
+                    null
+                } else {
+                    page + 1
+                }
+
+//                    val movieEntities = result.movieResponseList.map {
+//                        it.toMovieEntity()
+//                    }
+
+                remoteKeyDao.insertKey(
                     RemoteKeys(
-                        movieID = movieEntity.id,
-                        prevKey = prevPage,
-                        nextKey = nextPage
+                        movieID = "discover_movie",
+                        nextKey = nextPage,
+                        createdAt = System.currentTimeMillis()
                     )
-                }
-                unsplashRemoteKeysDao.insertAll(keys)
-                unsplashImageDao.insertAll(response.movieResponseList)
+                )
+                movieDao.insertAll(result.movieResponseList)
             }
-            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+
+            MediatorResult.Success(
+                endOfPaginationReached = result.movieResponseList.isEmpty()
+            )
         } catch (e: Exception) {
             return MediatorResult.Error(e)
         }
     }
-
-    private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, MovieEntity>
-    ): RemoteKeys? {
-        return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.id?.let { id ->
-                unsplashRemoteKeysDao.getRemoteKeyByMovieID(id = id)
-            }
-        }
-    }
-
-    private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, MovieEntity>
-    ): RemoteKeys? {
-        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
-            ?.let { MovieEntity ->
-                unsplashRemoteKeysDao.getRemoteKeyByMovieID(id = MovieEntity.id)
-            }
-    }
-
-    private suspend fun getRemoteKeyForLastItem(
-        state: PagingState<Int, MovieEntity>
-    ): RemoteKeys? {
-        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
-            ?.let { MovieEntity ->
-                unsplashRemoteKeysDao.getRemoteKeyByMovieID(id = MovieEntity.id)
-            }
-    }
-
 }
