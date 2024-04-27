@@ -9,6 +9,7 @@ data class RemoteKeys(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "movie_id")
     val movieID: Int,
+    val label: String,
     val prevKey: Int?,
     val currentPage: Int,
     val nextKey: Int?,

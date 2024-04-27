@@ -48,6 +48,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
             }
         }
     }
+
     override suspend fun getMovieDetails(movieId: Int): Movie =
         api.fetchMovieDetails(movieId).asDomain()
 
@@ -59,7 +60,9 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
     ): Flow<PagingData<MovieEntity>> {
         Log.e("MoviesRepositoryImp", query.toString())
         return Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = PagingConfig(
+                pageSize = pageSize, prefetchDistance = 10
+            ),
             remoteMediator = PagingKeyRemoteMediator(query, db, api)
         ) {
             db.moviesDao().getMoviesPagingSource(query.toString())

@@ -36,5 +36,7 @@ data class MovieEntity(
     val voteAverage: Double?,
     @Json(name = "vote_count")
     val voteCount: Int?,
-    var movieType: String?
+    var movieType: String?,
+//    @ColumnInfo(name = "page")
+    var page: Int?,
 )

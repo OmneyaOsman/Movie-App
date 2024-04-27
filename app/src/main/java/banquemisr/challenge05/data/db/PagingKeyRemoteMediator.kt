@@ -13,6 +13,7 @@ import banquemisr.challenge05.data.remote.Constants.MOVIES_STARTING_PAGE_INDEX
 import banquemisr.challenge05.data.remote.api.MoviesService
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class PagingKeyRemoteMediator(
@@ -23,17 +24,19 @@ class PagingKeyRemoteMediator(
 
     private val moviesDao = db.moviesDao()
     private val remoteKeysDao = db.remoteKeysDao()
+    private val movieType = query.toString()
 
     override suspend fun initialize(): InitializeAction {
-//        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
-//        return if (System.currentTimeMillis() - (db.remoteKeysDao().getCreationTime()
-//                ?: 0) < cacheTimeout
-//        ) {
-//            InitializeAction.SKIP_INITIAL_REFRESH
-//        } else {
-//            InitializeAction.LAUNCH_INITIAL_REFRESH
-//        }
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
+        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+        return if (System.currentTimeMillis() - (db.remoteKeysDao().getCreationTime()
+                ?: 0) < cacheTimeout
+        ) {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            return InitializeAction.LAUNCH_INITIAL_REFRESH
+        }
+
+
     }
 
     override suspend fun load(
@@ -99,9 +102,6 @@ class PagingKeyRemoteMediator(
             }
             Log.e("Mediator", "Inserting items reversed ------->  response for query $query")
             val movies: List<MovieEntity> = response.movieResponseList ?: emptyList()
-            movies.map {
-                it.movieType = query.toString()
-            }
             Log.e("Mediator", "Inserting items reversed ------->  response= $movies")
 
             val endOfPaginationReached = movies.isEmpty()
@@ -113,8 +113,8 @@ class PagingKeyRemoteMediator(
 
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    remoteKeysDao.clearRemoteKeys()
-                    moviesDao.deleteMovies()
+                    remoteKeysDao.deleteByQuery(movieType)
+                    moviesDao.deleteByQuery(movieType)
                 }
                 val prevKey = if (page > 1) page - 1 else null
                 val nextKey = if (endOfPaginationReached) null else page + 1
@@ -123,15 +123,20 @@ class PagingKeyRemoteMediator(
                         movieID = it.id,
                         prevKey = prevKey,
                         currentPage = page,
-                        nextKey = nextKey
+                        nextKey = nextKey,
+                        label = movieType
                     )
                 }
+
 
                 // Insert new movies into database, which invalidates the
                 // current PagingData, allowing Paging to present the updates
                 // in the DB.
                 db.remoteKeysDao().insertAll(remoteKeys)
                 db.moviesDao().insertAll(movies)
+                db.moviesDao().insertAll(movies.onEachIndexed { _, movie -> movie.page = page
+                    movie.movieType = movieType })
+
                 Log.e(
                     "Mediator",
                     "Inserting items reversed ------->  remoteKeys= ${

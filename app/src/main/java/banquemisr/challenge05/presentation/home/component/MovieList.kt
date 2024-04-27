@@ -43,6 +43,8 @@ fun MovieList(
                     Log.e("MovieList" , "Error")
 
                     val error = pagingItem.loadState.refresh as LoadState.Error
+                    Log.e("MovieList" , "Error ----> ${error.error.localizedMessage}")
+
                     item {
                         ErrorDialog(
                             errorMessage = error.error.localizedMessage!!,
@@ -52,9 +54,10 @@ fun MovieList(
                 }
 
                 loadState.append is LoadState.Error -> {
-                    Log.e("MovieList" , "Error")
-
                     val error = pagingItem.loadState.append as LoadState.Error
+
+                    Log.e("MovieList" , "Error ----> ${error.error.localizedMessage}")
+
                     item {
                         ErrorDialog(
                             errorMessage = error.error.localizedMessage!!,
