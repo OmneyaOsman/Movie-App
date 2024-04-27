@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 data class RemoteKeys(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "movie_id")
-    val movieID: String,
-//    val prevKey: Int?,
-//    val currentPage: Int,
+    val movieID: Int,
+    val prevKey: Int?,
+    val currentPage: Int,
     val nextKey: Int?,
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()

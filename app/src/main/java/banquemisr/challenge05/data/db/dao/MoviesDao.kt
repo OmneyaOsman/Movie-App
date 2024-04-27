@@ -12,8 +12,8 @@ interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movies: List<MovieEntity>)
 
-    @Query("SELECT * FROM Movie")
-    fun getMoviesPagingSource(): PagingSource<Int, MovieEntity>
+    @Query("SELECT * FROM Movie WHERE movieType = :query")
+    fun getMoviesPagingSource(query: String): PagingSource<Int, MovieEntity>
 
     @Query("SELECT * FROM Movie")
     suspend fun getMovies(): List<MovieEntity>
