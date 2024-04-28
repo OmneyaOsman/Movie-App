@@ -61,7 +61,7 @@ class HomeViewModelTest {
     @Test
     fun `test initial state is empty`() = runTest {
 
-        viewModel.nowPlayingMovieList.test {
+        viewModel.nowPlayingMovies.test {
             val item = awaitItem()
             val empty = PagingData.empty<MovieEntity>()
             item.map {

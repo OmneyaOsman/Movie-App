@@ -2,36 +2,47 @@ package banquemisr.challenge05.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.domain.useCase.HomeUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUseCases: HomeUseCases,
-//    detailsUseCase: GetMovieDetailsUseCase
 ) : ViewModel() {
 
-    val nowPlayingMovieList: StateFlow<PagingData<Movie>> =
+    val nowPlayingMovies =
         homeUseCases.getNowPlayingMovieUseCase.invoke()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PagingData.empty())
-
-    val nowPlayingMovieListt =
-        homeUseCases.getNowPlayingMovieUseCase.invoke().flowOn(Dispatchers.IO)
+            .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
-//            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PagingData.empty())
+
+    val upComingMovies =
+        homeUseCases.getUpComingMoviesUseCase.invoke()
+            .flowOn(Dispatchers.IO)
+            .cachedIn(viewModelScope)
+
+    val popularMovies =
+        homeUseCases.getPopularMovieUseCase.invoke()
+            .flowOn(Dispatchers.IO)
+            .cachedIn(viewModelScope)
+
+//    private val _state = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
+//    val state: StateFlow<PagingData<Movie>> = _state.stateIn(
+//        scope = viewModelScope,
+//        started = SharingStarted.WhileSubscribed(),
+//        initialValue = PagingData.empty(),
+//    )
+
+//    init {
+//        getUpComingMovies()
+//    }
 //
-//            .flowOn(Dispatchers.IO)
-//            .cachedIn(viewModelScope)
-
-
+//    private fun getUpComingMovies() {
+//        homeUseCases.getUpComingMoviesUseCase.invoke().cachedIn(viewModelScope).launchIn(viewModelScope)
+//    }
 }

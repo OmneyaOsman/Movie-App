@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import banquemisr.challenge05.domain.model.Movie
+import banquemisr.challenge05.presentation.home.component.MovieList
 import banquemisr.challenge05.presentation.home.component.NowPlayingHorizontalPager
 
 
 @Composable
 fun HomeContent(
-//    topRatedPagingItem: LazyPagingItems<Movie>,
-//    popularPagingItem: LazyPagingItems<Movie>,
+    upComingPagingItem: LazyPagingItems<Movie>,
+    popularPagingItem: LazyPagingItems<Movie>,
     nowPlayingPagingItem: LazyPagingItems<Movie>,
     onNavigateDetailScreen: (String) -> Unit
 ) {
@@ -51,34 +52,34 @@ fun HomeContent(
                 onNavigateDetailScreen = onNavigateDetailScreen
             )
         }
-//        item {
-//            Spacer(modifier = Modifier.height(20.dp))
-//            Text(
-//                text = "Top-Rated",
-//                fontSize = 18.sp,
-//                color = MaterialTheme.colorScheme.onBackground,
-//                fontWeight = FontWeight.SemiBold
-//            )
-//            Spacer(modifier = Modifier.height(10.dp))
-//            MovieList(
-//                pagingItem = topRatedPagingItem,
-//                onNavigateDetailScreen = onNavigateDetailScreen
-//            )
-//        }
-//        item {
-//            Spacer(modifier = Modifier.height(20.dp))
-//            Text(
-//                text = "Popular",
-//                fontSize = 18.sp,
-//                color = MaterialTheme.colorScheme.onBackground,
-//                fontWeight = FontWeight.SemiBold
-//            )
-//            Spacer(modifier = Modifier.height(10.dp))
-//            MovieList(
-//                pagingItem = popularPagingItem,
-//                onNavigateDetailScreen = onNavigateDetailScreen
-//            )
-//        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = "UpComing",
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            MovieList(
+                pagingItem = upComingPagingItem,
+                onNavigateDetailScreen = onNavigateDetailScreen
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = "Popular",
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            MovieList(
+                pagingItem = popularPagingItem,
+                onNavigateDetailScreen = onNavigateDetailScreen
+            )
+        }
 
     }
 }
