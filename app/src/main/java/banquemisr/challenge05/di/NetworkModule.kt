@@ -16,20 +16,25 @@
 
 package banquemisr.challenge05.di
 
+import android.content.Context
 import banquemisr.challenge05.BuildConfig
 import banquemisr.challenge05.data.remote.api.MoviesService
 import banquemisr.challenge05.data.remote.interceptor.AuthorizationInterceptor
+import banquemisr.challenge05.data.remote.interceptor.CacheInterceptor
 import banquemisr.challenge05.di.NetworkModuleConstants.RETROFIT_TIMEOUT
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -42,32 +47,27 @@ internal object NetworkModule {
     fun provideAuthorizationInterceptor(): AuthorizationInterceptor =
         AuthorizationInterceptor(BuildConfig.ACCESS_TOKEN)
 
-    @Provides
     @Singleton
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
-            level =HttpLoggingInterceptor.Level.BODY
-        }
-//        HttpLoggingInterceptor { logMessage ->
-//            Log.e("NetworkModule" , logMessage)
-//        }.apply {
-//            level =
-//                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-//        }
-
+    @Provides
+    fun provideCacheInterceptor() = CacheInterceptor()
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        interceptor: HttpLoggingInterceptor,
+        @ApplicationContext context: Context,
+        cacheInterceptor: CacheInterceptor,
         authorizationInterceptor: AuthorizationInterceptor
     ): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(authorizationInterceptor)
-            .connectTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)
-            .addNetworkInterceptor(interceptor)
-            .build()
+        OkHttpClient.Builder().apply {
+            addInterceptor(authorizationInterceptor)
+            connectTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)
+            cache(Cache(File(context.cacheDir, "http-cache"), 10L * 1024L * 1024L))
+            addNetworkInterceptor(cacheInterceptor)
+            if (BuildConfig.DEBUG) {
+                addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            }
+        }.build()
 
     @Singleton
     @Provides
