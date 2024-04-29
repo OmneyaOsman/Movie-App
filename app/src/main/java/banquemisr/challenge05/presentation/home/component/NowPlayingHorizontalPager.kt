@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.paging.compose.LazyPagingItems
-import banquemisr.challenge05.data.remote.Constants
+import banquemisr.challenge05.core.remote.Constants
 import banquemisr.challenge05.domain.model.Movie
 import coil.compose.AsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi

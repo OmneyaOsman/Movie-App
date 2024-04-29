@@ -2,7 +2,7 @@ package banquemisr.challenge05.data.remote.api
 
 import banquemisr.challenge05.data.entities.MovieEntity
 import banquemisr.challenge05.data.entities.MoviesResponse
-import banquemisr.challenge05.data.remote.Constants
+import banquemisr.challenge05.core.remote.Constants
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

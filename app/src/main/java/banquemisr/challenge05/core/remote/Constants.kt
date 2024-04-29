@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.remote
+package banquemisr.challenge05.core.remote
 
 object Constants {
     const val IMAGE_BASE_URL: String = "https://image.tmdb.org/t/p"

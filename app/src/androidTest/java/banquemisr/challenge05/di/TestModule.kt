@@ -2,7 +2,6 @@ package banquemisr.challenge05.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import banquemisr.challenge05.BuildConfig
 import banquemisr.challenge05.data.db.GenereListConverter
 import banquemisr.challenge05.data.db.MoviesDatabase
@@ -37,6 +36,8 @@ internal object TestModule {
         return GenereListConverter(moshi)
     }
 
+    @Provides
+    @Singleton
     fun provideMovieDatabase(
         application: Application,
         genereListConverter: GenereListConverter
@@ -75,7 +76,7 @@ internal object TestModule {
 
     @Singleton
     @Provides
-    fun providesMoshi() = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    fun providesMoshi():Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     @Provides
     @Singleton

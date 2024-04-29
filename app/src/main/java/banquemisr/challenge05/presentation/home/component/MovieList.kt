@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import banquemisr.challenge05.data.remote.Constants
+import banquemisr.challenge05.core.remote.Constants
 import banquemisr.challenge05.domain.model.Movie
 import coil.compose.AsyncImage
 

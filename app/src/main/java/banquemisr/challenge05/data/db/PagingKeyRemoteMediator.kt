@@ -6,11 +6,11 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import banquemisr.challenge05.core.remote.Constants.MOVIES_STARTING_PAGE_INDEX
+import banquemisr.challenge05.core.remote.MovieType
+import banquemisr.challenge05.core.remote.value
 import banquemisr.challenge05.data.entities.MovieEntity
-import banquemisr.challenge05.data.entities.MovieType
 import banquemisr.challenge05.data.entities.RemoteKeys
-import banquemisr.challenge05.data.entities.value
-import banquemisr.challenge05.data.remote.Constants.MOVIES_STARTING_PAGE_INDEX
 import banquemisr.challenge05.data.remote.api.MoviesService
 import retrofit2.HttpException
 import java.io.IOException

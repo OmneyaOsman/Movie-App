@@ -16,7 +16,7 @@ class FakeMoviesService : MoviesService {
         }
 
 
-    fun createMovieResponse() = MoviesResponse(
+    private fun createMovieResponse() = MoviesResponse(
         movieResponseList = movieList,
         page = 1,
         totalPages = 50,
