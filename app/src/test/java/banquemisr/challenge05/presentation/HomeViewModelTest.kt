@@ -1,6 +1,5 @@
 package banquemisr.challenge05.presentation
 
-import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.map
 import app.cash.turbine.test
@@ -10,6 +9,8 @@ import banquemisr.challenge05.data.utils.MainCoroutinesRule
 import banquemisr.challenge05.domain.model.Genre
 import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.domain.useCase.GetNowPlayingMoviesUseCase
+import banquemisr.challenge05.domain.useCase.GetPopularMoviesUseCase
+import banquemisr.challenge05.domain.useCase.GetUpComingMoviesUseCase
 import banquemisr.challenge05.domain.useCase.HomeUseCases
 import banquemisr.challenge05.presentation.home.HomeViewModel
 import com.google.common.truth.Truth.assertThat
@@ -17,7 +18,6 @@ import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.junit4.MockKRule
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -41,18 +41,29 @@ class HomeViewModelTest {
     @Before
     fun setUp() {
         val pagingData = PagingData.from(resultList)
-        every { moviesUseCases.getNowPlayingMovieUseCase() } returns flowOf(pagingData)
 
-        mockkStatic(Log::class)
-        every { Log.isLoggable(any(), any()) } returns false
+        every { moviesUseCases.getNowPlayingMovieUseCase.invoke() } returns flowOf(pagingData)
+
         every { mockMovieRepository.getNowPlayingMovies() } returns flowOf(pagingData)
+        every { mockMovieRepository.getUpComingMovies() } returns flowOf(pagingData)
+        every { mockMovieRepository.getPopularMovies() } returns flowOf(pagingData)
+
         every {
             moviesUseCases.getNowPlayingMovieUseCase
         } returns GetNowPlayingMoviesUseCase(mockMovieRepository)
 
+        every {
+            moviesUseCases.getPopularMovieUseCase
+        } returns GetPopularMoviesUseCase(mockMovieRepository)
+
+        every {
+            moviesUseCases.getUpComingMoviesUseCase
+        } returns GetUpComingMoviesUseCase(mockMovieRepository)
+
         viewModel = HomeViewModel(moviesUseCases)
 
     }
+
     @After
     fun tearDown() {
         clearAllMocks()
@@ -73,17 +84,54 @@ class HomeViewModelTest {
 
 
     @Test
-    fun testGetTrendingMovies_ReturnPagingData() = runTest {
+    fun testNowPlayingMovies_ReturnPagingData() = runTest {
 
+        val expected = PagingData.from(resultList)
+
+        viewModel.nowPlayingMovies.test {
+
+            awaitItem().map {
+                assertThat(it).isEqualTo(expected.map { model -> model })
+            }
+        }
+
+    }
+
+    @Test
+    fun testPopularMovies_ReturnPagingData() = runTest {
+
+        val expected = PagingData.from(resultList)
+
+        viewModel.popularMovies.test {
+
+            awaitItem().map {
+                assertThat(it).isEqualTo(expected.map { model -> model })
+            }
+        }
+
+    }
+
+    @Test
+    fun testUpComingMovies_ReturnPagingData() = runTest {
+
+        val expected = PagingData.from(resultList)
+
+        viewModel.upComingMovies.test {
+
+            awaitItem().map {
+                assertThat(it).isEqualTo(expected.map { model -> model })
+            }
+        }
 
     }
 
 
-    val resultList = listOf(
+
+    private val resultList = listOf(
         Movie(
             929590,
             "/uv2twFGMk2qBdyJBJAVcrpRtSa9.jpg",
-            listOf(Genre(0,"genre 1")),
+            listOf(Genre(0, "genre 1")),
             "en",
             "Civil War",
             "In the near future, a group of war journalists attempt to survive while reporting the truth as the United States stands on the brink of civil war.",
@@ -95,7 +143,7 @@ class HomeViewModelTest {
             120, toString()
         ), Movie(
             823464, "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg",
-            listOf(Genre(0,"genre")),
+            listOf(Genre(0, "genre")),
             "en",
             "Godzilla x Kong: The New Empire",
             "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
