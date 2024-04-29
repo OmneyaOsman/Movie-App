@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeUseCases: HomeUseCases,
+    homeUseCases: HomeUseCases,
 ) : ViewModel() {
 
     val nowPlayingMovies =
