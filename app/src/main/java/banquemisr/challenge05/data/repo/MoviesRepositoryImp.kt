@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import banquemisr.challenge05.core.utils.Response
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
 import banquemisr.challenge05.data.entities.MovieEntity
@@ -17,7 +18,9 @@ import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.domain.repo.MoviesRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapLatest
+import retrofit2.HttpException
 
 class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : MoviesRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -49,8 +52,17 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         }
     }
 
-    override suspend fun getMovieDetails(movieId: Int): Movie =
-        api.fetchMovieDetails(movieId).asDomain()
+    override suspend fun getMovieDetails(movieId: Int): Flow<Response<Movie>> = flow {
+        return@flow try {
+            emit(Response.Loading)
+            val result = api.fetchMovieDetails(movieId).asDomain()
+            emit(Response.Success(result))
+        } catch (e: Exception) {
+            emit(Response.Error(e))
+        } catch (e: HttpException) {
+            emit(Response.Error(e))
+        }
+    }
 
 
     @OptIn(ExperimentalPagingApi::class)

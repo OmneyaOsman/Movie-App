@@ -36,7 +36,7 @@ fun HomeContent(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 50.dp)
+            .padding(start = 12.dp, end = 12.dp, top = 10.dp)
     ) {
         item {
             Text(
@@ -81,21 +81,5 @@ fun HomeContent(
             )
         }
 
-    }
-}
-@Composable
-fun PageLoader(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Loading",
-            color = MaterialTheme.colorScheme.primary,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-        CircularProgressIndicator(Modifier.padding(top = 10.dp))
     }
 }

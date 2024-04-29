@@ -93,7 +93,7 @@ fun NowPlayingItem(
                         y = 0,
                     )
                 },
-            model = "${Constants.IMAGE_BASE_URL}${movie.posterPath}",
+            model = "${Constants.IMAGE_BASE_URL}/w300/${movie.posterPath}",
             contentDescription = "Now Playing Image",
             contentScale = ContentScale.Crop
         )

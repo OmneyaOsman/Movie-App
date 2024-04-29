@@ -16,8 +16,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import banquemisr.challenge05.data.remote.Constants
 import banquemisr.challenge05.domain.model.Movie
-import banquemisr.challenge05.presentation.home.PageLoader
 import coil.compose.AsyncImage
 
 @Composable
@@ -82,7 +82,7 @@ fun MovieListItem(movie: Movie, onNavigateDetailScreen: (String) -> Unit) {
     ) {
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
-            model = "https://image.tmdb.org/t/p/w300/${movie.posterPath}",
+            model = "${Constants.IMAGE_BASE_URL}/w300/${movie.posterPath}",
             contentDescription = "Movie Image",
             contentScale = ContentScale.Crop
         )
