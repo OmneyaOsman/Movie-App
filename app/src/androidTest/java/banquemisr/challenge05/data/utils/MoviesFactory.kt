@@ -20,7 +20,7 @@ object MoviesFactory {
             "2024-04-10", 0,
             "Civil War",
             7.404,
-            120, toString()
+            120,  "now_playing",1
         ), MovieEntity(
             823464, "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg",
             listOf(GenreEntity(0,"genre")),
@@ -32,7 +32,7 @@ object MoviesFactory {
             "2024-03-27", 0,
             "Godzilla x Kong: The New Empire",
             6.699,
-            654, toString()
+            654, "now_playing",1
         )
     )
 
