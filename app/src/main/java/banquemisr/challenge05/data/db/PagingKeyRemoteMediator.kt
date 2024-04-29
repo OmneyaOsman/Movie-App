@@ -96,9 +96,9 @@ class PagingKeyRemoteMediator(
             // thread.
             Log.e("Mediator", "Inserting items reversed ------->  getQuery")
             val response = when (query) {
-                MovieType.POPULAR -> moviesService.fetchPopularMovies(page = page)
-                MovieType.NOW_PLAYING -> moviesService.fetchNowPlayingMovies(page = page)
-                MovieType.UPCOMING -> moviesService.fetchUpcomingMovies(page = page)
+                MovieType.Popular -> moviesService.fetchPopularMovies(page = page)
+                MovieType.NowPlaying -> moviesService.fetchNowPlayingMovies(page = page)
+                MovieType.UpComing -> moviesService.fetchUpcomingMovies(page = page)
             }
             Log.e("Mediator", "Inserting items reversed ------->  response for query $query")
             val movies: List<MovieEntity> = response.movieResponseList ?: emptyList()

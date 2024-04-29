@@ -74,7 +74,7 @@ class PagingKeyRemoteMediatorTest {
             movieList = MoviesFactory.moviesList()
         }
         val remoteMediator = PagingKeyRemoteMediator(
-            MovieType.NOW_PLAYING,
+            MovieType.NowPlaying,
             movieDb,
             moviesService
         )
@@ -92,7 +92,7 @@ class PagingKeyRemoteMediatorTest {
         }
 
         val remoteMediator = PagingKeyRemoteMediator(
-            MovieType.UPCOMING,
+            MovieType.UpComing,
             movieDb,
             moviesService
         )
@@ -111,7 +111,7 @@ class PagingKeyRemoteMediatorTest {
             failureMsg = "invalid API Key"
         }
         val remoteMediator = PagingKeyRemoteMediator(
-            MovieType.POPULAR,
+            MovieType.Popular,
             movieDb,
             moviesService
         )

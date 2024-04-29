@@ -3,7 +3,7 @@ package banquemisr.challenge05.presentation.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import banquemisr.challenge05.core.utils.Response
+import banquemisr.challenge05.core.remote.Response
 import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.domain.useCase.GetMovieDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

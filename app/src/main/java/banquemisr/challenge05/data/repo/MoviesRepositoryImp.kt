@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import banquemisr.challenge05.core.utils.Response
+import banquemisr.challenge05.core.remote.Response
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
 import banquemisr.challenge05.data.entities.MovieEntity
@@ -26,7 +26,7 @@ import retrofit2.HttpException
 class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : MoviesRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getUpComingMovies(): Flow<PagingData<Movie>> =
-        getMovies(MovieType.UPCOMING).mapLatest { pagingData ->
+        getMovies(MovieType.UpComing).mapLatest { pagingData ->
             pagingData.map { model ->
                 model.asDomain()
             }
@@ -34,7 +34,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getPopularMovies(): Flow<PagingData<Movie>> =
-        getMovies(MovieType.POPULAR).mapLatest { pagingData ->
+        getMovies(MovieType.Popular).mapLatest { pagingData ->
             pagingData.map { model ->
                 model.asDomain()
             }
@@ -43,7 +43,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getNowPlayingMovies(): Flow<PagingData<Movie>> {
         Log.e("NetworkModule", "getNowPlayingMovies Repo")
-        return getMovies(MovieType.NOW_PLAYING).mapLatest { pagingData ->
+        return getMovies(MovieType.NowPlaying).mapLatest { pagingData ->
             Log.e("NetworkModule", "getNowPlayingMovies Repo")
             pagingData.map { model ->
                 Log.e("NetworkModule", "getNowPlayingMovies asDomain")

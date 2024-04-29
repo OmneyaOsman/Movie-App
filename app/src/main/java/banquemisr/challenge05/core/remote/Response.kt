@@ -1,4 +1,4 @@
-package banquemisr.challenge05.core.utils
+package banquemisr.challenge05.core.remote
 
 sealed class Response<out R> {
     object Loading : Response<Nothing>()

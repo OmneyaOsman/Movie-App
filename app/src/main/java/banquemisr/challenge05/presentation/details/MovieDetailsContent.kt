@@ -33,7 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import banquemisr.challenge05.core.utils.Response
+import banquemisr.challenge05.core.remote.Response
 import banquemisr.challenge05.data.remote.Constants
 import banquemisr.challenge05.domain.model.Genre
 import banquemisr.challenge05.domain.model.Movie
