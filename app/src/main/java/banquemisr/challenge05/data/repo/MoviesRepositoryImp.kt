@@ -70,14 +70,14 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         query: MovieType,
         pageSize: Int = Constants.PAGE_SIZE
     ): Flow<PagingData<MovieEntity>> {
-        Log.e("MoviesRepositoryImp", query.toString())
+        Log.e("MoviesRepositoryImp", query.value())
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize, prefetchDistance = 10
             ),
             remoteMediator = PagingKeyRemoteMediator(query, db, api)
         ) {
-            db.moviesDao().getMoviesPagingSource(query.toString())
+            db.moviesDao().getMoviesPagingSource(query.value())
         }.flow
     }
 }

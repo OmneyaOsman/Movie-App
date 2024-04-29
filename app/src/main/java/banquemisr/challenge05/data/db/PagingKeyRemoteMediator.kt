@@ -9,6 +9,7 @@ import androidx.room.withTransaction
 import banquemisr.challenge05.data.entities.MovieEntity
 import banquemisr.challenge05.data.entities.MovieType
 import banquemisr.challenge05.data.entities.RemoteKeys
+import banquemisr.challenge05.data.entities.value
 import banquemisr.challenge05.data.remote.Constants.MOVIES_STARTING_PAGE_INDEX
 import banquemisr.challenge05.data.remote.api.MoviesService
 import retrofit2.HttpException
@@ -24,7 +25,7 @@ class PagingKeyRemoteMediator(
 
     private val moviesDao = db.moviesDao()
     private val remoteKeysDao = db.remoteKeysDao()
-    private val movieType = query.toString()
+    private val movieType = query.value()
 
     override suspend fun initialize(): InitializeAction {
         val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
@@ -38,7 +39,6 @@ class PagingKeyRemoteMediator(
 
 
     }
-
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, MovieEntity>
