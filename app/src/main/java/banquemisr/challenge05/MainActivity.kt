@@ -4,7 +4,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import banquemisr.challenge05.navigation.NavGraph
@@ -19,19 +23,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             Banquemisrchallenge05Theme {
                 val navController = rememberNavController()
-                val currentRoute =
-                    navController.currentBackStackEntryAsState().value?.destination?.route
-                Scaffold() {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     NavGraph(navController = navController)
                 }
             }
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview() {
-//    Banquemisrchallenge05Theme{
-//    }
-//}
