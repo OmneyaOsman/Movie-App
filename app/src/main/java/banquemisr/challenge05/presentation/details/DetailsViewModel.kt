@@ -1,7 +1,5 @@
 package banquemisr.challenge05.presentation.details
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,7 +31,7 @@ class DetailsViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<Int>(MOVIE_ID)?.let {
-            loadMovieDetails(movieId = it.toInt())
+            loadMovieDetails(movieId = it)
         }
     }
 
