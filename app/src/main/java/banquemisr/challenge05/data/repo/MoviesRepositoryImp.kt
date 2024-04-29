@@ -11,6 +11,7 @@ import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
 import banquemisr.challenge05.data.entities.MovieEntity
 import banquemisr.challenge05.data.entities.MovieType
+import banquemisr.challenge05.data.entities.value
 import banquemisr.challenge05.data.mapper.asDomain
 import banquemisr.challenge05.data.remote.Constants
 import banquemisr.challenge05.data.remote.api.MoviesService
@@ -73,7 +74,8 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
         Log.e("MoviesRepositoryImp", query.value())
         return Pager(
             config = PagingConfig(
-                pageSize = pageSize, prefetchDistance = 10
+                pageSize = pageSize,
+                prefetchDistance = 5
             ),
             remoteMediator = PagingKeyRemoteMediator(query, db, api)
         ) {
