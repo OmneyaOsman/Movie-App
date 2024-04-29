@@ -30,7 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,7 +40,6 @@ import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.presentation.home.component.CircularProgress
 import banquemisr.challenge05.presentation.home.component.ErrorDialog
 import banquemisr.challenge05.presentation.home.component.PageLoader
-import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -82,7 +80,7 @@ fun MovieDetails(movie: Movie, onNavigateBack: () -> Unit) {
                 ) {
                     val painter = rememberAsyncImagePainter(
                         model = ImageRequest.Builder(LocalContext.current).data(
-                            "${Constants.IMAGE_BASE_URL}/w300/${movie.backdropPath}"
+                            "${Constants.IMAGE_BASE_URL}/w500/${movie.posterPath}"
                         ).size(Size.ORIGINAL).crossfade(true).build(),
                     )
                     if (painter.state is AsyncImagePainter.State.Loading)
@@ -115,6 +113,24 @@ fun MovieDetails(movie: Movie, onNavigateBack: () -> Unit) {
                     movie.releaseDate?.let {
                         Text(
                             text = it,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(4.dp))
+                    movie.popularity?.let {
+                        Text(
+                            text = "Popularity : $it",
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(4.dp))
+                    movie.voteAverage?.let {
+                        Text(
+                            text = "Vote Average : $it",
                             fontWeight = FontWeight.Medium,
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.onBackground,
