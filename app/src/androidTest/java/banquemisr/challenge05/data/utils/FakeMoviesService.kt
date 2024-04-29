@@ -9,11 +9,7 @@ class FakeMoviesService : MoviesService {
 
     var failureMsg: String? = null
 
-    var movieList: List<MovieEntity> = emptyList<MovieEntity>()
-        get() = field
-        set(value) {
-            field = value
-        }
+    var movieList: List<MovieEntity> = emptyList()
 
 
     private fun createMovieResponse() = MoviesResponse(
@@ -49,6 +45,6 @@ class FakeMoviesService : MoviesService {
         failureMsg?.let {
             throw IOException(it)
         }
-        return MoviesFactory.moviesList().get(movieId)
+        return MoviesFactory.moviesList().first { it.id == movieId }
     }
 }

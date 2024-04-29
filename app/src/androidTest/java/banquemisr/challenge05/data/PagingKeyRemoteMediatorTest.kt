@@ -3,11 +3,9 @@ package banquemisr.challenge05.data
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.RemoteMediator
-import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import banquemisr.challenge05.DispatcherCoroutinesRule
 import banquemisr.challenge05.core.remote.MovieType
-import banquemisr.challenge05.data.db.GenereListConverter
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
 import banquemisr.challenge05.data.db.dao.MoviesDao
@@ -15,7 +13,6 @@ import banquemisr.challenge05.data.db.dao.RemoteKeysDao
 import banquemisr.challenge05.data.utils.FakeMoviesService
 import banquemisr.challenge05.data.utils.MoviesFactory
 import banquemisr.challenge05.data.utils.MoviesFactory.mockedPagingState
-import com.squareup.moshi.Moshi
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
@@ -31,31 +28,20 @@ class PagingKeyRemoteMediatorTest {
     val coroutinesRule = DispatcherCoroutinesRule()
 
     private var moviesService: FakeMoviesService = FakeMoviesService()
-    private lateinit var movieDb: MoviesDatabase
-    private lateinit var mockDao: MoviesDao
+    private lateinit var moviesDatabase: MoviesDatabase
+    private lateinit var moviesDao: MoviesDao
     private lateinit var mockRemoteKeysDao: RemoteKeysDao
 
     @Before
     fun setUP() {
-        movieDb = createDB()
-        mockDao = movieDb.moviesDao()
-        mockRemoteKeysDao = movieDb.remoteKeysDao()
-    }
-
-    private fun createDB(): MoviesDatabase {
-        val moshi = Moshi.Builder().build()
-        return Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            MoviesDatabase::class.java
-        )
-            .allowMainThreadQueries()
-            .addTypeConverter(GenereListConverter(moshi))
-            .build()
+        moviesDatabase = MoviesFactory.createDB(ApplicationProvider.getApplicationContext())
+        moviesDao = moviesDatabase.moviesDao()
+        mockRemoteKeysDao = moviesDatabase.remoteKeysDao()
     }
 
     @After
     fun tearDown() {
-        movieDb.clearAllTables()
+        moviesDatabase.clearAllTables()
         moviesService.apply {
             failureMsg = null
             movieList = emptyList()
@@ -74,7 +60,7 @@ class PagingKeyRemoteMediatorTest {
         }
         val remoteMediator = PagingKeyRemoteMediator(
             MovieType.NowPlaying,
-            movieDb,
+            moviesDatabase,
             moviesService
         )
         val result = remoteMediator.load(LoadType.REFRESH, mockedPagingState)
@@ -92,7 +78,7 @@ class PagingKeyRemoteMediatorTest {
 
         val remoteMediator = PagingKeyRemoteMediator(
             MovieType.UpComing,
-            movieDb,
+            moviesDatabase,
             moviesService
         )
 
@@ -111,7 +97,7 @@ class PagingKeyRemoteMediatorTest {
         }
         val remoteMediator = PagingKeyRemoteMediator(
             MovieType.Popular,
-            movieDb,
+            moviesDatabase,
             moviesService
         )
 

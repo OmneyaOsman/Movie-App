@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SmallTest
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import banquemisr.challenge05.data.db.GenereListConverter
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.utils.MoviesFactory
@@ -18,7 +17,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @SmallTest
@@ -28,26 +26,26 @@ class MoviesDaoTest{
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var db: MoviesDatabase
-    private lateinit var dao: MoviesDao
+    lateinit var moviesDatabase: MoviesDatabase
+    private lateinit var moviesDao: MoviesDao
 
     @Before
     fun initDB() {
         val moshi = Moshi.Builder().build()
-        db = Room.inMemoryDatabaseBuilder(
+        moviesDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             MoviesDatabase::class.java)
             .allowMainThreadQueries()
             .addTypeConverter(GenereListConverter(moshi))
             .build()
 
-        dao = db.moviesDao()
+        moviesDao = moviesDatabase.moviesDao()
 
     }
 
     @After
     fun closeDB() {
-        db.close()
+        moviesDatabase.close()
     }
 
     @Test
@@ -56,11 +54,11 @@ class MoviesDaoTest{
         val list = MoviesFactory.moviesList()
 
         list.takeIf { it.isNotEmpty() }
-            ?.let { dao.insertAll(it) }
+            ?.let { moviesDao.insertAll(it) }
 
 
         //Act
-        val retrievedList = dao.getMovies()
+        val retrievedList = moviesDao.getMovies()
 
         //Assert
         MatcherAssert.assertThat(retrievedList, CoreMatchers.`is`(CoreMatchers.notNullValue()))
@@ -73,12 +71,12 @@ class MoviesDaoTest{
         val list = MoviesFactory.moviesList()
 
         list.takeIf { it.isNotEmpty() }
-            ?.let { dao.insertAll(it) }
+            ?.let { moviesDao.insertAll(it) }
 
 
         //Act
-        dao.deleteMovies()
-        val retrievedList = dao.getMovies()
+        moviesDao.deleteMovies()
+        val retrievedList = moviesDao.getMovies()
 
         //Assert
         MatcherAssert.assertThat(retrievedList, CoreMatchers.`is`(CoreMatchers.notNullValue()))
@@ -92,9 +90,9 @@ class MoviesDaoTest{
         val list = MoviesFactory.moviesList()
 
         list.takeIf { it.isNotEmpty() }
-            ?.let { dao.insertAll(it) }
+            ?.let { moviesDao.insertAll(it) }
 
-        val retrievedMovieEntity = dao.getMovieDetails(list[0].id)
+        val retrievedMovieEntity = moviesDao.getMovieDetails(list[0].id)
 
         MatcherAssert.assertThat(retrievedMovieEntity, IsEqual(list[0]))
         MatcherAssert.assertThat(retrievedMovieEntity.genres?.get(0)?.name, IsEqual(list[0].genres?.get(0)?.name))

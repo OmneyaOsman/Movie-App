@@ -185,6 +185,7 @@ dependencies {
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.runner)
 //        androidTestImplementation(libs.okhttp.mockserver)

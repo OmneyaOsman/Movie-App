@@ -10,18 +10,18 @@ import java.io.IOException
 
 class MoviesServiceTest : AbstractAPIService<MoviesService>() {
 
-    private lateinit var service: MoviesService
+    private lateinit var moviesService: MoviesService
 
     @Before
     fun initService() {
-        service = createService(MoviesService::class.java)
+        moviesService = createService(MoviesService::class.java)
     }
 
     @Throws(IOException::class)
     @Test
     fun fetchMoviesFromNetworkTestThenReturnSuccessResponse() = runBlocking {
         enqueueResponse("/UpcomingMoviesReponse.json")
-        val response = service.fetchUpcomingMovies(1)
+        val response = moviesService.fetchUpcomingMovies(1)
 
         MatcherAssert.assertThat(
             response.movieResponseList[0].title,
@@ -38,7 +38,7 @@ class MoviesServiceTest : AbstractAPIService<MoviesService>() {
     @Test
     fun fetchMovieDetailsFromNetworkTestThenReturnSuccessResponse() = runBlocking {
         enqueueResponse("/MovieDetailsResponse.json")
-        val response = service.fetchMovieDetails(823464)
+        val response = moviesService.fetchMovieDetails(823464)
 
         MatcherAssert.assertThat(
             response.title,

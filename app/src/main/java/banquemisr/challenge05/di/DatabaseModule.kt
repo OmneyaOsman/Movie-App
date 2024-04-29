@@ -21,7 +21,7 @@ object DatabaseModule {
     @Provides
     fun provideMovieDatabase(
         application: Application,
-        genereListConverter: GenereListConverter
+        genreListConverter: GenereListConverter
     ): MoviesDatabase =
         Room
             .databaseBuilder(
@@ -29,7 +29,7 @@ object DatabaseModule {
                 MoviesDatabase::class.java,
                 "movies_database"
             )
-            .addTypeConverter(genereListConverter)
+            .addTypeConverter(genreListConverter)
             .build()
 
     @Singleton
