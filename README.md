@@ -1,6 +1,10 @@
 # Movie App
 
-This movie application provides users with an extensive collection of Now playing, Popular,and UpComing, allowing them to explore detailed information about each movie. Users can search for specific films and delve into their details. 
+This movie application provides users with an extensive collection of Now playing, Popular, and UpComing, allowing them to explore detailed information about each movie. Users can search for specific films and delve into their details. 
+
+<img src="previews/Screenshot_20240430_053353.png" width="200" height="400"> <img src="previews/Screenshot_20240430_053450.png" width="200" height="400"> 
+
+
 
 ## Overview
 - This project embraces a robust development approach by incorporating MVVM (Model-View-ViewModel), and Clean Architecture principles.
