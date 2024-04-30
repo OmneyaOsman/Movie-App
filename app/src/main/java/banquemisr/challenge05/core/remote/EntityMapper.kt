@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.mapper
+package banquemisr.challenge05.core.remote
 
 interface EntityMapper<Domain, Entity> {
     fun asDomain(entity: Entity): Domain

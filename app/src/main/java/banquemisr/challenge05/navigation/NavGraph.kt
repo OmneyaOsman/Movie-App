@@ -3,7 +3,7 @@ package banquemisr.challenge05.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import banquemisr.challenge05.presentation.util.Screen
+import banquemisr.challenge05.core.Screen
 
 @Composable
 fun NavGraph(navController: NavHostController) {

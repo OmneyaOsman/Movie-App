@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import banquemisr.challenge05.presentation.details.DetailScreen
 import banquemisr.challenge05.presentation.details.DetailsViewModel.Companion.MOVIE_ID
-import banquemisr.challenge05.presentation.util.Screen
+import banquemisr.challenge05.core.Screen
 
 fun NavGraphBuilder.detailScreen(navController: NavController) {
     composable(

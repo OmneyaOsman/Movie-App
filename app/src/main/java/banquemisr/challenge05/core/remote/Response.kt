@@ -14,9 +14,5 @@ sealed class Response<out R> {
     }
 }
 
-fun <T> Response<T>.successOr(fallback: T): T {
-    return (this as? Response.Success<T>)?.data ?: fallback
-}
-
 val <T> Response<T>.data: T?
     get() = (this as? Response.Success)?.data

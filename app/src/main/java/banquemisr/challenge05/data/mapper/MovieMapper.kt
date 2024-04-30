@@ -1,5 +1,6 @@
 package banquemisr.challenge05.data.mapper
 
+import banquemisr.challenge05.core.remote.EntityMapper
 import banquemisr.challenge05.data.entities.MovieEntity
 import banquemisr.challenge05.domain.model.Movie
 

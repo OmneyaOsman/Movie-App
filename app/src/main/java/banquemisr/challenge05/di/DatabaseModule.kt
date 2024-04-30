@@ -12,7 +12,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 
 @Module
@@ -22,7 +21,7 @@ object DatabaseModule {
     @Provides
     fun provideMovieDatabase(
         application: Application,
-        genereListConverter: GenereListConverter
+        genreListConverter: GenereListConverter
     ): MoviesDatabase =
         Room
             .databaseBuilder(
@@ -30,7 +29,7 @@ object DatabaseModule {
                 MoviesDatabase::class.java,
                 "movies_database"
             )
-            .addTypeConverter(genereListConverter)
+            .addTypeConverter(genreListConverter)
             .build()
 
     @Singleton
@@ -44,7 +43,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideGenereListConverter(moshi: Moshi): GenereListConverter {
+    fun provideGenreListConverter(moshi: Moshi): GenereListConverter {
         return GenereListConverter(moshi)
     }
 

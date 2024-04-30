@@ -6,14 +6,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import banquemisr.challenge05.core.remote.Constants
+import banquemisr.challenge05.core.remote.MovieType
 import banquemisr.challenge05.core.remote.Response
+import banquemisr.challenge05.core.remote.value
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagingKeyRemoteMediator
 import banquemisr.challenge05.data.entities.MovieEntity
-import banquemisr.challenge05.data.entities.MovieType
-import banquemisr.challenge05.data.entities.value
 import banquemisr.challenge05.data.mapper.asDomain
-import banquemisr.challenge05.data.remote.Constants
 import banquemisr.challenge05.data.remote.api.MoviesService
 import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.domain.repo.MoviesRepository
@@ -67,7 +67,7 @@ class MoviesRepositoryImp(val db: MoviesDatabase, val api: MoviesService) : Movi
 
 
     @OptIn(ExperimentalPagingApi::class)
-    private fun getMovies(
+     fun getMovies(
         query: MovieType,
         pageSize: Int = Constants.PAGE_SIZE
     ): Flow<PagingData<MovieEntity>> {

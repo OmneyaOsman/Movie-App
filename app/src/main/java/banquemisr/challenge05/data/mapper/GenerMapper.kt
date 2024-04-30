@@ -1,8 +1,8 @@
 package banquemisr.challenge05.data.mapper
 
+import banquemisr.challenge05.core.remote.EntityMapper
 import banquemisr.challenge05.data.entities.GenreEntity
 import banquemisr.challenge05.domain.model.Genre
-import javax.inject.Inject
 
 object GenreMapper : EntityMapper<List<Genre>, List<GenreEntity>> {
 

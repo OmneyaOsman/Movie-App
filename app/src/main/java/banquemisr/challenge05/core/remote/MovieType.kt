@@ -1,4 +1,4 @@
-package banquemisr.challenge05.data.entities
+package banquemisr.challenge05.core.remote
 
 
 sealed interface MovieType {

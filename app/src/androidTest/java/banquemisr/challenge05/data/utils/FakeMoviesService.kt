@@ -5,18 +5,14 @@ import banquemisr.challenge05.data.entities.MoviesResponse
 import banquemisr.challenge05.data.remote.api.MoviesService
 import java.io.IOException
 
-class FakeMoviesService : MoviesService {
+class FakeMoviesService(list : List<MovieEntity> = emptyList()) : MoviesService {
 
     var failureMsg: String? = null
 
-    var movieList: List<MovieEntity> = emptyList<MovieEntity>()
-        get() = field
-        set(value) {
-            field = value
-        }
+    var movieList: List<MovieEntity> = list
 
 
-    fun createMovieResponse() = MoviesResponse(
+    private fun createMovieResponse() = MoviesResponse(
         movieResponseList = movieList,
         page = 1,
         totalPages = 50,
@@ -49,6 +45,6 @@ class FakeMoviesService : MoviesService {
         failureMsg?.let {
             throw IOException(it)
         }
-        return MoviesFactory.moviesList().get(movieId)
+        return MoviesFactory.moviesList().first { it.id == movieId }
     }
 }
