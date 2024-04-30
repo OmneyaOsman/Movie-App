@@ -5,11 +5,11 @@ import banquemisr.challenge05.data.entities.MoviesResponse
 import banquemisr.challenge05.data.remote.api.MoviesService
 import java.io.IOException
 
-class FakeMoviesService : MoviesService {
+class FakeMoviesService(list : List<MovieEntity> = emptyList()) : MoviesService {
 
     var failureMsg: String? = null
 
-    var movieList: List<MovieEntity> = emptyList()
+    var movieList: List<MovieEntity> = list
 
 
     private fun createMovieResponse() = MoviesResponse(

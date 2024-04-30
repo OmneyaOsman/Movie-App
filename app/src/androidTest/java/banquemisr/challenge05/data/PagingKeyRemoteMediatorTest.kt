@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.RemoteMediator
 import androidx.test.core.app.ApplicationProvider
-import banquemisr.challenge05.DispatcherCoroutinesRule
+import banquemisr.challenge05.data.utils.DispatcherCoroutinesRule
 import banquemisr.challenge05.core.remote.MovieType
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.PagingKeyRemoteMediator

@@ -1,36 +1,26 @@
 package banquemisr.challenge05.data.repo
 
-import androidx.paging.RemoteMediator
 import androidx.paging.map
 import androidx.test.core.app.ApplicationProvider
 import app.cash.turbine.test
-import banquemisr.challenge05.DispatcherCoroutinesRule
+import banquemisr.challenge05.data.utils.DispatcherCoroutinesRule
 import banquemisr.challenge05.core.remote.Response
-import banquemisr.challenge05.core.remote.data
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.dao.MoviesDao
 import banquemisr.challenge05.data.db.dao.RemoteKeysDao
-import banquemisr.challenge05.data.entities.MovieEntity
 import banquemisr.challenge05.data.mapper.asDomain
-import banquemisr.challenge05.data.remote.api.MoviesService
 import banquemisr.challenge05.data.utils.FakeMoviesService
 import banquemisr.challenge05.data.utils.MoviesFactory
-import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.domain.repo.MoviesRepository
 import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 
 class MoviesRepositoryImpTest {
 

@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.2"
 coilCompose = "2.6.0"
+hiltAndroidTesting = "2.51.1"
 kotlin = "1.9.23"
 ksp = "1.9.23-1.0.20"
 coreKtx = "1.12.0"
@@ -11,8 +12,13 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2024.04.00"
 androidxComposeCompiler = "1.5.12"
+lifecycleViewmodelCompose = "2.7.0-rc01"
+mockk = "1.13.10"
+okhttpVersion = "4.12.0"
+pagingCommonKtx = "3.2.1"
 pagingCompose = "3.2.1"
 pagingRuntimeKtx = "3.2.1"
+pagingTesting = "3.1.0"
 retrofit = "2.11.0"
 okHttp = "4.12.0"
 moshi = "1.15.1"
@@ -34,12 +40,6 @@ mockito = "5.11.0"
 mockito-kotlin = "5.2.1"
 androidxHiltNavigationCompose = "1.2.0"
 androidxComposeNavigation = "2.7.7"
-material = "1.11.0"
-activity = "1.8.0"
-constraintlayout = "2.1.4"
-
-#hilt-navigation = "1.0.0-alpha03"
-#androidxNavigation = "2.5.0"
 
 
 
@@ -50,7 +50,12 @@ constraintlayout = "2.1.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-paging-common-ktx = { module = "androidx.paging:paging-common-ktx", version.ref = "pagingCommonKtx" }
+androidx-paging-testing = { module = "androidx.paging:paging-testing", version.ref = "pagingTesting" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidTesting" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCore" }
@@ -73,6 +78,8 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 
 
 #Room
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttpVersion" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
@@ -107,9 +114,6 @@ androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-kotlin  = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

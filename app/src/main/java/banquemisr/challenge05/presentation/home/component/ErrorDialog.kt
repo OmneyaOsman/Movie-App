@@ -27,9 +27,9 @@ import androidx.compose.ui.window.Dialog
 fun ErrorDialog(
     errorMessage: String,
     onRetryClick: () -> Unit,
-    onDismiss: () -> Unit,
+
 ) {
-    Dialog(onDismissRequest = { onDismiss() }) {
+    Dialog(onDismissRequest = {  }) {
         Card(
             shape = RoundedCornerShape(10.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background)

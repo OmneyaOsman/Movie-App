@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.Packaging
 import com.android.build.api.variant.BuildConfigField
 
 plugins {
@@ -7,8 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-//    id("kotlin-parcelize")
-
 }
 
 android {
@@ -67,13 +64,6 @@ android {
             excludes += "META-INF/LICENSE-notice.md"
         }
     }
-    testOptions {
-        fun Packaging.() {
-            jniLibs {
-                useLegacyPackaging = true
-            }
-        }
-    }
     buildFeatures {
         viewBinding = true
     }
@@ -97,12 +87,6 @@ androidComponents {
             )
         )
     }
-
-//        sourceSets.getByName("test") {
-//            assets.srcDir(files("$projectDir/schemas"))
-//        }
-
-
 }
 
 dependencies {
@@ -116,8 +100,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-rc01")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -148,8 +132,8 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.room.paging)
-    testImplementation("androidx.paging:paging-common-ktx:3.2.1")
-    testImplementation("androidx.paging:paging-testing:3.1.0")
+    testImplementation(libs.androidx.paging.common.ktx)
+    testImplementation(libs.androidx.paging.testing)
 
 
     // Pager Indicator
@@ -158,8 +142,8 @@ dependencies {
 
 //    implementation(libs.junit)
 //  unit tests
-    testImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
-    testImplementation("io.mockk:mockk:1.13.10")
+    testImplementation(libs.okhttp)
+    testImplementation(libs.mockk)
     testImplementation(libs.mockito.core)
 
     testImplementation(libs.mockito.kotlin)
@@ -188,17 +172,7 @@ dependencies {
     androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.runner)
-//        androidTestImplementation(libs.okhttp.mockserver)
     androidTestImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    kspAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
-//        androidTestImplementation("com.squareup.okhttp3:okhttp:${libs.versions.okHttp.get()}")
-//        androidTestImplementation("io.mockk:mockk:1.13.10")
-//        androidTestImplementation ("io.mockk:mockk-android:1.13.10")
-//        androidTestImplementation( "io.mockk:mockk-agent:1.13.10")
-//        androidTestImplementation( libs.mockito.core)
-//        androidTestImplementation( libs.mockito.kotlin)
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.7-alpha")
-
-
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
 }
