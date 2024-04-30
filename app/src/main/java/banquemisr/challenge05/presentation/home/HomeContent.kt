@@ -3,6 +3,7 @@ package banquemisr.challenge05.presentation.home
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +30,7 @@ fun HomeContent(
 ) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().padding(10.dp)
             .testTag(TestTag.NOW_PLAYING_MOVIES),
         state = rememberLazyListState()
     ) {
