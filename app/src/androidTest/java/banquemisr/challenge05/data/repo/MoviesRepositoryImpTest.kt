@@ -3,19 +3,17 @@ package banquemisr.challenge05.data.repo
 import androidx.paging.map
 import androidx.test.core.app.ApplicationProvider
 import app.cash.turbine.test
-import banquemisr.challenge05.data.utils.DispatcherCoroutinesRule
 import banquemisr.challenge05.core.remote.Response
 import banquemisr.challenge05.data.db.MoviesDatabase
 import banquemisr.challenge05.data.db.dao.MoviesDao
 import banquemisr.challenge05.data.db.dao.RemoteKeysDao
 import banquemisr.challenge05.data.mapper.asDomain
+import banquemisr.challenge05.data.utils.DispatcherCoroutinesRule
 import banquemisr.challenge05.data.utils.FakeMoviesService
 import banquemisr.challenge05.data.utils.MoviesFactory
 import banquemisr.challenge05.domain.repo.MoviesRepository
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
-
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -61,7 +59,7 @@ class MoviesRepositoryImpTest {
         result.test {
             val firstItem = awaitItem()
             firstItem.map {
-                Truth.assertThat(it).isEqualTo(MoviesFactory.moviesList())
+                assertThat(it).isEqualTo(MoviesFactory.moviesList())
                 awaitComplete()
             }
         }
@@ -76,7 +74,7 @@ class MoviesRepositoryImpTest {
         result.test {
             val firstItem = awaitItem()
             firstItem.map {
-                Truth.assertThat(it).isEqualTo(MoviesFactory.moviesList())
+                assertThat(it).isEqualTo(MoviesFactory.moviesList())
                 awaitComplete()
             }
         }
@@ -105,7 +103,7 @@ class MoviesRepositoryImpTest {
         val result = moviesRepository.getMovieDetails(929590)
         result.test {
             val firstItem = awaitItem()
-            Truth.assertThat(firstItem).isEqualTo(Response.Loading)
+            assertThat(firstItem).isEqualTo(Response.Loading)
 
             val secondItem = awaitItem()
             assertThat(secondItem).isEqualTo(Response.Success(MoviesFactory.moviesList()[0].asDomain()))
@@ -121,7 +119,7 @@ class MoviesRepositoryImpTest {
         val result = moviesRepository.getMovieDetails(929590)
         result.test {
             val firstItem = awaitItem()
-            Truth.assertThat(firstItem).isEqualTo(Response.Loading)
+            assertThat(firstItem).isEqualTo(Response.Loading)
 
             val secondItem = awaitItem()
             TestCase.assertTrue((secondItem is Response.Error))

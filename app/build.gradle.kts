@@ -114,7 +114,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.okhttp.interceptor)
-    implementation(libs.timber.logs)
 
     // Coil Compose
     implementation(libs.coil.compose)
