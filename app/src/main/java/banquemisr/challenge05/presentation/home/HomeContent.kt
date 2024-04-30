@@ -1,21 +1,20 @@
 package banquemisr.challenge05.presentation.home
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
+import banquemisr.challenge05.core.TestTag
 import banquemisr.challenge05.domain.model.Movie
 import banquemisr.challenge05.presentation.home.component.MovieList
 import banquemisr.challenge05.presentation.home.component.NowPlayingHorizontalPager
@@ -31,8 +30,7 @@ fun HomeContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(start = 12.dp, end = 12.dp, top = 10.dp),
+            .testTag(TestTag.NOW_PLAYING_MOVIES),
         state = rememberLazyListState()
     ) {
         item {
@@ -43,7 +41,6 @@ fun HomeContent(
                 fontWeight = FontWeight.SemiBold
             )
             Spacer(modifier = Modifier.height(15.dp))
-            Log.e("HomeContent" ,"nowPlayingPagingItem ${nowPlayingPagingItem.itemCount}" )
             NowPlayingHorizontalPager(
                 nowPlayingPagingItem = nowPlayingPagingItem,
                 onNavigateDetailScreen = onNavigateDetailScreen
@@ -60,7 +57,8 @@ fun HomeContent(
             Spacer(modifier = Modifier.height(10.dp))
             MovieList(
                 pagingItem = upComingPagingItem,
-                onNavigateDetailScreen = onNavigateDetailScreen
+                onNavigateDetailScreen = onNavigateDetailScreen,
+                Modifier.testTag(TestTag.UPCOMING_MOVIES)
             )
         }
         item {
@@ -74,7 +72,8 @@ fun HomeContent(
             Spacer(modifier = Modifier.height(10.dp))
             MovieList(
                 pagingItem = popularPagingItem,
-                onNavigateDetailScreen = onNavigateDetailScreen
+                onNavigateDetailScreen = onNavigateDetailScreen,
+                Modifier.testTag(TestTag.POPULAR_MOVIES)
             )
         }
 

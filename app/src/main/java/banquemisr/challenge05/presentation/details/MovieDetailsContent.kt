@@ -30,9 +30,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import banquemisr.challenge05.core.TestTag
 import banquemisr.challenge05.core.remote.Constants
 import banquemisr.challenge05.core.remote.Response
 import banquemisr.challenge05.domain.model.Genre
@@ -47,15 +49,13 @@ import coil.size.Size
 
 @Composable
 fun MovieDetailsContent(state: Response<Movie>, onNavigateBack: () -> Unit, onRetry: () -> Unit) {
-    AnimatedContent(targetState = state) {
+    AnimatedContent(targetState = state, label = "") {
 
         when (it) {
             is Response.Error -> {
                 ErrorDialog(
                     errorMessage = it.exception.localizedMessage ?: "Un Handled Error",
-                    onRetryClick = { onRetry() }) {
-
-                }
+                    onRetryClick = { onRetry() })
             }
 
             Response.Loading -> PageLoader()
@@ -71,7 +71,7 @@ fun MovieDetailsContent(state: Response<Movie>, onNavigateBack: () -> Unit, onRe
 @Composable
 fun MovieDetails(movie: Movie, onNavigateBack: () -> Unit) {
     Box {
-        LazyColumn {
+        LazyColumn(modifier = Modifier.testTag(TestTag.DETAILS_LIST)) {
             item {
                 Box(
                     modifier = Modifier
@@ -87,7 +87,7 @@ fun MovieDetails(movie: Movie, onNavigateBack: () -> Unit) {
                         CircularProgress(true)
                     else
                         Image(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxSize().testTag(TestTag.DETAILS_IMAGE),
                             painter = painter,
                             contentScale = ContentScale.Crop,
                             contentDescription = "Movie Poster"
@@ -177,7 +177,7 @@ fun MovieDetails(movie: Movie, onNavigateBack: () -> Unit) {
                 }
                 .padding(5.dp)
                 .align(Alignment.TopStart)
-//                .testTag(TestTag.BackIcon)
+                .testTag(TestTag.BACK_ICON)
 
         ) {
             Icon(
@@ -192,7 +192,7 @@ fun MovieDetails(movie: Movie, onNavigateBack: () -> Unit) {
 
 @Composable
 fun GenreList(genres: List<Genre>) {
-    LazyRow {
+    LazyRow(modifier = Modifier.testTag(TestTag.DETAILS_MOVIES_GENRES)) {
         items(genres.size) { index ->
             Box(
                 modifier = Modifier

@@ -28,9 +28,10 @@ import coil.compose.AsyncImage
 @Composable
 fun MovieList(
     pagingItem: LazyPagingItems<Movie>,
-    onNavigateDetailScreen: (String) -> Unit
+    onNavigateDetailScreen: (String) -> Unit,
+    modifier: Modifier =Modifier
 ) {
-    LazyRow {
+    LazyRow (modifier = modifier ){
         items(pagingItem.itemCount) { index ->
             MovieListItem(
                 movie = pagingItem[index]!!,
@@ -54,7 +55,7 @@ fun MovieList(
                         ErrorDialog(
                             errorMessage = error.error.localizedMessage!!,
                             onRetryClick = { retry() },
-                        ) {  }
+                        )
                     }
                 }
 
@@ -67,7 +68,7 @@ fun MovieList(
                         ErrorDialog(
                             errorMessage = error.error.localizedMessage!!,
                             onRetryClick = { retry() },
-                        ) {  }
+                        )
                     }
                 }
             }

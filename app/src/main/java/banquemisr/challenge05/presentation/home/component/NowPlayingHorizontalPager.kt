@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import banquemisr.challenge05.core.remote.Constants
 import banquemisr.challenge05.domain.model.Movie
@@ -40,19 +43,49 @@ fun NowPlayingHorizontalPager(
     nowPlayingPagingItem: LazyPagingItems<Movie>,
     onNavigateDetailScreen: (String) -> Unit
 ) {
-    val state = rememberPagerState()
-    HorizontalPager(
-        state = state,
-        count = nowPlayingPagingItem.itemCount
-    ) { page ->
-        val pageOffset = (state.currentPage - page) + state.currentPageOffset
-        val scaleFactor = 0.75f + (1f - 0.75f) * (1f - pageOffset.absoluteValue)
-        NowPlayingItem(
-            movie = nowPlayingPagingItem[page]!!,
-            pageOffset = pageOffset,
-            scale = scaleFactor,
-            onNavigateDetailScreen = onNavigateDetailScreen
-        )
+    if (nowPlayingPagingItem.itemCount != 0) {
+        val state = rememberPagerState()
+        HorizontalPager(
+            state = state,
+            count = nowPlayingPagingItem.itemCount
+        ) { page ->
+            val pageOffset = (state.currentPage - page) + state.currentPageOffset
+            val scaleFactor = 0.75f + (1f - 0.75f) * (1f - pageOffset.absoluteValue)
+            NowPlayingItem(
+                movie = nowPlayingPagingItem[page]!!,
+                pageOffset = pageOffset,
+                scale = scaleFactor,
+                onNavigateDetailScreen = onNavigateDetailScreen
+            )
+        }
+    }
+
+    nowPlayingPagingItem.apply {
+        when {
+            loadState.refresh is LoadState.Loading -> {
+                PageLoader(modifier = Modifier.fillMaxSize())
+            }
+
+            loadState.refresh is LoadState.Error -> {
+                val error = loadState.refresh as LoadState.Error
+                ErrorDialog(
+                    errorMessage = error.error.localizedMessage!!,
+                    onRetryClick = { retry() },
+                )
+            }
+
+            loadState.append is LoadState.Loading -> {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgress(true)
+                }
+
+            }
+        }
     }
 }
 
@@ -124,8 +157,13 @@ fun MovieInfo(modifier: Modifier = Modifier, movie: Movie) {
         modifier = modifier,
     )
     {
-        Column(modifier=Modifier.padding(3.dp)) {
-            Text(text = movie.title, maxLines = 1, color = Color.White , overflow = TextOverflow.Ellipsis)
+        Column(modifier = Modifier.padding(3.dp)) {
+            Text(
+                text = movie.title,
+                maxLines = 1,
+                color = Color.White,
+                overflow = TextOverflow.Ellipsis
+            )
             Spacer(modifier = Modifier.size(1.dp))
             movie.releaseDate?.let {
                 Text(text = it, color = Color.White)

@@ -1,4 +1,4 @@
-package banquemisr.challenge05.presentation
+package banquemisr.challenge05
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController

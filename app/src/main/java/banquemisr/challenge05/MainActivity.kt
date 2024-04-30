@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import banquemisr.challenge05.navigation.NavGraph
-import banquemisr.challenge05.presentation.MoviesMainApp
 import banquemisr.challenge05.ui.theme.Banquemisrchallenge05Theme
 import dagger.hilt.android.AndroidEntryPoint
 
